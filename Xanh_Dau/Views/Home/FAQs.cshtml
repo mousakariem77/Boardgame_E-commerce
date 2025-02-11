@@ -1,0 +1,177 @@
+@{
+    ViewData["Title"] = "FAQs Page";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link rel="stylesheet" href="~/css/site.css"/>
+<link rel="stylesheet" href="~/tailwind/build/tailwind.css">
+<link rel="stylesheet" href="~/fonts/boxicons.css"/>
+<script src="~/js/site.js"></script>
+
+<div class="bg-gray-100">
+
+    <!-- Section giới thiệu chung về FAQ -->
+    <section class="bg-green-700 text-white py-20">
+        <div class="container mx-auto text-center">
+            <h1 class="text-4xl font-extrabold">Chào mừng bạn đến với trang Câu Hỏi Thường Gặp của Xanh Đấu!</h1>
+            <p class="mt-4 text-lg">Tại đây, bạn sẽ tìm thấy những câu hỏi phổ biến mà người dùng đã đặt ra về sản phẩm,
+                chính sách của chúng tôi và cách chúng tôi hỗ trợ bạn. Nếu bạn không tìm thấy câu trả lời cho câu hỏi
+                của mình, đừng ngần ngại liên hệ với chúng tôi!</p>
+        </div>
+    </section>
+
+    <!-- Section các câu hỏi FAQ -->
+    <section class="py-16 bg-white px-5">
+        <div class="container mx-auto px-6">
+            <div class="space-y-12">
+                <!-- Sản phẩm Xanh Đấu -->
+                <div>
+                    <h2 class="text-3xl font-bold text-gray-800">Các câu hỏi về sản phẩm Xanh Đấu</h2>
+                    <div class="mt-4 space-y-4">
+                        <details class="bg-gray-50 p-4 rounded-md">
+                            <summary class="font-semibold text-gray-700">Xanh Đấu là gì?</summary>
+                            <p class="mt-2 text-gray-600">Xanh Đấu là một trò chơi boardgame với chủ đề bảo vệ môi
+                                trường, mang lại cho người chơi những trải nghiệm thú vị và đầy ý nghĩa.</p>
+                        </details>
+                        <details class="bg-gray-50 p-4 rounded-md">
+                            <summary class="font-semibold text-gray-700">Cách chơi game Xanh Đấu như thế nào?</summary>
+                            <p class="mt-2 text-gray-600">Trò chơi Xanh Đấu bao gồm các lượt chơi trong đó người chơi
+                                thực hiện các hành động bảo vệ môi trường để tích lũy điểm và chiến thắng.</p>
+                        </details>
+                        <details class="bg-gray-50 p-4 rounded-md">
+                            <summary class="font-semibold text-gray-700">Sản phẩm có những gì trong bộ game?</summary>
+                            <p class="mt-2 text-gray-600">Bộ game Xanh Đấu bao gồm các quân cờ, thẻ hành động, bảng
+                                điểm, và các tài liệu hướng dẫn chi tiết cách chơi.</p>
+                        </details>
+                        <details class="bg-gray-50 p-4 rounded-md">
+                            <summary class="font-semibold text-gray-700">Xanh Đấu có bao nhiêu phiên bản?</summary>
+                            <p class="mt-2 text-gray-600">Hiện tại, Xanh Đấu có 2 phiên bản: Phiên bản cơ bản và Phiên
+                                bản nâng cao với nhiều thử thách hấp dẫn hơn.</p>
+                        </details>
+                        <details class="bg-gray-50 p-4 rounded-md">
+                            <summary class="font-semibold text-gray-700">Có thể chơi Xanh Đấu với bao nhiêu người?
+                            </summary>
+                            <p class="mt-2 text-gray-600">Xanh Đấu có thể chơi từ 2 đến 6 người, phù hợp với nhóm bạn bè
+                                hoặc gia đình.</p>
+                        </details>
+                        <details class="bg-gray-50 p-4 rounded-md">
+                            <summary class="font-semibold text-gray-700">Sản phẩm có phù hợp với trẻ em không?</summary>
+                            <p class="mt-2 text-gray-600">Xanh Đấu thích hợp cho mọi lứa tuổi, bao gồm cả trẻ em từ 8
+                                tuổi trở lên. Trò chơi giúp trẻ em hiểu hơn về bảo vệ môi trường.</p>
+                        </details>
+                        <details class="bg-gray-50 p-4 rounded-md">
+                            <summary class="font-semibold text-gray-700">Có thể mua bộ game ở đâu?</summary>
+                            <p class="mt-2 text-gray-600">Bộ game Xanh Đấu có thể được mua trên website chính thức của
+                                chúng tôi hoặc tại các cửa hàng đối tác phân phối.</p>
+                        </details>
+                    </div>
+                </div>
+
+                <!-- Chính sách mua hàng -->
+                <div>
+                    <h2 class="text-3xl font-bold text-gray-800">Các câu hỏi về chính sách mua hàng</h2>
+                    <div class="mt-4 space-y-4">
+                        <details class="bg-gray-50 p-4 rounded-md">
+                            <summary class="font-semibold text-gray-700">Làm thế nào để mua sản phẩm Xanh Đấu?</summary>
+                            <p class="mt-2 text-gray-600">Bạn có thể mua sản phẩm Xanh Đấu trực tiếp trên website của
+                                chúng tôi hoặc tại các cửa hàng phân phối hợp tác.</p>
+                        </details>
+                        <details class="bg-gray-50 p-4 rounded-md">
+                            <summary class="font-semibold text-gray-700">Xanh Đấu có nhận thanh toán qua thẻ tín dụng
+                                không?
+                            </summary>
+                            <p class="mt-2 text-gray-600">Chúng tôi chấp nhận thanh toán qua thẻ tín dụng, thẻ ghi nợ,
+                                và các phương thức thanh toán trực tuyến khác.</p>
+                        </details>
+                        <details class="bg-gray-50 p-4 rounded-md">
+                            <summary class="font-semibold text-gray-700">Có thể thanh toán khi nhận hàng không?
+                            </summary>
+                            <p class="mt-2 text-gray-600">Chúng tôi cung cấp dịch vụ thanh toán khi nhận hàng (COD) cho
+                                các đơn hàng trong phạm vi nội thành.</p>
+                        </details>
+                        <details class="bg-gray-50 p-4 rounded-md">
+                            <summary class="font-semibold text-gray-700">Có chương trình khuyến mãi hay giảm giá
+                                không?
+                            </summary>
+                            <p class="mt-2 text-gray-600">Chúng tôi thường xuyên có các chương trình khuyến mãi và giảm
+                                giá, vui lòng theo dõi website để cập nhật thông tin mới nhất.</p>
+                        </details>
+                    </div>
+                </div>
+
+                <!-- Giao hàng và vận chuyển -->
+                <div>
+                    <h2 class="text-3xl font-bold text-gray-800">Các câu hỏi về giao hàng và vận chuyển</h2>
+                    <div class="mt-4 space-y-4">
+                        <details class="bg-gray-50 p-4 rounded-md">
+                            <summary class="font-semibold text-gray-700">Xanh Đấu có giao hàng quốc tế không?</summary>
+                            <p class="mt-2 text-gray-600">Hiện tại, chúng tôi chỉ hỗ trợ giao hàng trong nước. Giao hàng
+                                quốc tế sẽ được triển khai trong tương lai gần.</p>
+                        </details>
+                        <details class="bg-gray-50 p-4 rounded-md">
+                            <summary class="font-semibold text-gray-700">Thời gian giao hàng trung bình là bao lâu?
+                            </summary>
+                            <p class="mt-2 text-gray-600">Thời gian giao hàng trung bình từ 3-5 ngày làm việc tùy vào
+                                khu vực giao hàng.</p>
+                        </details>
+                        <details class="bg-gray-50 p-4 rounded-md">
+                            <summary class="font-semibold text-gray-700">Tôi có thể theo dõi đơn hàng của mình ở đâu?
+                            </summary>
+                            <p class="mt-2 text-gray-600">Bạn có thể theo dõi đơn hàng của mình qua mã số vận đơn được
+                                gửi qua email sau khi đặt hàng.</p>
+                        </details>
+                        <details class="bg-gray-50 p-4 rounded-md">
+                            <summary class="font-semibold text-gray-700">Phí vận chuyển tính như thế nào?</summary>
+                            <p class="mt-2 text-gray-600">Phí vận chuyển sẽ được tính dựa trên khu vực giao hàng và
+                                trọng lượng sản phẩm. Bạn sẽ thấy phí vận chuyển trước khi thanh toán.</p>
+                        </details>
+                    </div>
+                </div>
+
+                <!-- Đổi trả và bảo hành -->
+                <div>
+                    <h2 class="text-3xl font-bold text-gray-800">Các câu hỏi về đổi trả và bảo hành</h2>
+                    <div class="mt-4 space-y-4">
+                        <details class="bg-gray-50 p-4 rounded-md">
+                            <summary class="font-semibold text-gray-700">Tôi có thể đổi hoặc trả lại sản phẩm nếu không
+                                hài lòng không?
+                            </summary>
+                            <p class="mt-2 text-gray-600">Có, bạn có thể đổi hoặc trả lại sản phẩm trong vòng 7 ngày kể
+                                từ ngày nhận hàng nếu sản phẩm bị lỗi hoặc không như mô tả.</p>
+                        </details>
+                        <details class="bg-gray-50 p-4 rounded-md">
+                            <summary class="font-semibold text-gray-700">Sản phẩm bị lỗi có được bảo hành không?
+                            </summary>
+                            <p class="mt-2 text-gray-600">Nếu sản phẩm bị lỗi do nhà sản xuất, bạn có thể yêu cầu bảo
+                                hành trong vòng 12 tháng kể từ ngày mua.</p>
+                        </details>
+                    </div>
+                </div>
+
+                <!-- Hỗ trợ khách hàng -->
+                <div>
+                    <h2 class="text-3xl font-bold text-gray-800">Các câu hỏi về hỗ trợ khách hàng</h2>
+                    <div class="mt-4 space-y-4">
+                        <details class="bg-gray-50 p-4 rounded-md">
+                            <summary class="font-semibold text-gray-700">Làm sao để liên hệ với đội ngũ hỗ trợ khách
+                                hàng?
+                            </summary>
+                            <p class="mt-2 text-gray-600">Bạn có thể liên hệ với đội ngũ hỗ trợ khách hàng qua email:
+                                support@xanhdau.com hoặc gọi số hotline: +84 123 456 789.</p>
+                        </details>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section liên hệ -->
+    <section class="text-dark py-20">
+        <div class="container mx-auto text-center">
+            <h3 class="text-2xl font-bold">Không tìm thấy câu trả lời cho câu hỏi của bạn?</h3>
+            <p class="mt-4">Chúng tôi luôn sẵn sàng giúp đỡ bạn! Hãy liên hệ với chúng tôi qua email: <a
+                    href="mailto:support@xanhdau.com" class="underline">support@xanhdau.com</a> hoặc gọi số: <a
+                    href="tel:+84123456789" class="underline">+84 123 456 789</a>.</p>
+        </div>
+    </section>
+
+</div>

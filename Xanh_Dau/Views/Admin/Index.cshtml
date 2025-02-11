@@ -1,0 +1,99 @@
+@{
+    ViewData["Title"] = "Login Admin Page";
+    Layout = "~/Views/Shared/_LayoutEmpty.cshtml";
+}
+<link rel="stylesheet" href="~/css/site.css"/>
+<link rel="stylesheet" href="~/tailwind/build/tailwind.css">
+<link rel="stylesheet" href="~/fonts/boxicons.css"/>
+<script src="~/js/site.js"></script>
+
+<div class="bg-gray-50">
+    <!-- Section tiêu đề và lời chào -->
+    <section class="bg-white text-dark py-3">
+        <div class="container mx-auto text-center">
+            <h1 class="text-4xl font-extrabold">Chào mừng bạn trở lại, Quản trị viên!</h1>
+            <p class="mt-4 text-lg">Vui lòng đăng nhập để quản lý hệ thống và các hoạt động của Xanh Đấu.</p>
+        </div>
+    </section>
+
+    <!-- Section form đăng nhập -->
+    <section class="bg-white">
+        <div class="container mx-auto px-6">
+            <div class="max-w-md mx-auto bg-white p-8 rounded-lg shadow-lg">
+                <!-- Form đăng nhập -->
+                <form method="post">
+                    <div class="mb-6">
+                        <label for="username" class="block text-gray-700 font-medium">Tên đăng nhập</label>
+                        <input type="username" id="username" name="username" placeholder="Nhập username quản trị viên"
+                               class="w-full mt-2 p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
+                               required/>
+                    </div>
+
+                    <div class="mb-6">
+                        <label for="password" class="block text-gray-700 font-medium">Mật khẩu</label>
+                        <div class="relative">
+                            <input type="password" id="password" name="password" placeholder="Nhập mật khẩu của bạn"
+                                   class="w-full mt-2 p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
+                                   required/>
+                            <button type="button" class="absolute right-3 top-3 text-gray-500"
+                                    onclick="togglePasswordVisibility()">
+                                <i id="password-eye" class="fas fa-eye"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="flex items-center justify-between mb-6">
+                        <div class="flex items-center">
+                            <input type="checkbox" id="remember" name="remember" class="mr-2"/>
+                            <label for="remember" class="text-gray-600">Nhớ mật khẩu</label>
+                        </div>
+                        <a href="#" class="text-sm text-green-500 hover:underline">Quên mật khẩu?</a>
+                    </div>
+
+                    <div class="mb-6">
+                        <button type="submit"
+                                class="w-full bg-green-700 text-white p-3 rounded-md hover:bg-green-800 focus:outline-none focus:ring-2 focus:ring-green-500">
+                            Đăng nhập
+                        </button>
+                    </div>
+
+                    <!-- Lời khuyên bảo mật -->
+                    <div class="mt-6 text-sm text-gray-600">
+                        <p><strong>Lời khuyên bảo mật:</strong></p>
+                        <p>Hãy chắc chắn rằng bạn sử dụng mật khẩu mạnh để bảo vệ tài khoản của mình. Không chia sẻ mật
+                            khẩu với bất kỳ ai.</p>
+                    </div>
+
+                    <!-- Chính sách bảo mật -->
+                    <div class="mt-4 text-sm text-gray-600 text-center">
+                        <p><a asp-controller="Auth" asp-action="TOS" class="text-green-500 hover:underline">Đọc chính
+                                sách bảo mật của chúng tôi.</a></p>
+                    </div>
+
+                    <!-- Thông báo lỗi đăng nhập -->
+                    <div id="login-error" class="hidden mt-4 text-red-600 text-sm">
+                        <p>Email hoặc mật khẩu không chính xác.</p>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+</div>
+
+<!-- Đoạn mã JavaScript để ẩn/hiện mật khẩu -->
+<script>
+    function togglePasswordVisibility() {
+        const passwordField = document.getElementById('password');
+        const passwordEyeIcon = document.getElementById('password-eye');
+        if (passwordField.type === 'password') {
+            passwordField.type = 'text';
+            passwordEyeIcon.classList.remove('fa-eye');
+            passwordEyeIcon.classList.add('fa-eye-slash');
+        } else {
+            passwordField.type = 'password';
+            passwordEyeIcon.classList.remove('fa-eye-slash');
+            passwordEyeIcon.classList.add('fa-eye');
+        }
+    }
+</script>

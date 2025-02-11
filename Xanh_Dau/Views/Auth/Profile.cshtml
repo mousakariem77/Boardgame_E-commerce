@@ -1,0 +1,413 @@
+@using Xanh_Dau.Helpers
+@model Xanh_Dau.DTO.ProfileDTO
+@{
+    ViewData["Title"] = "Profile Page";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link rel="stylesheet" href="~/css/site.css"/>
+<link rel="stylesheet" href="~/tailwind/build/tailwind.css">
+<link rel="stylesheet" href="~/fonts/boxicons.css"/>
+<script src="~/js/site.js"></script>
+
+<div class="max-w-7xl mx-auto py-8">
+    <!-- Sidebar -->
+    <div class="flex">
+        <div class="w-1/4 bg-gray-50 p-6 rounded-lg shadow-md">
+            <h3 class="text-2xl font-bold text-gray-800 mb-6 ml-5 mt-4">Tài Khoản</h3>
+            <ul class="space-y-4 text-gray-700 ml-5 cursor-pointer">
+                <li><a class="font-semibold hover:text-green-500" onclick="showTab('profile')">Hồ Sơ</a></li>
+                <li><a class="hover:text-green-500" onclick="showTab('change-password')">Đổi Mật Khẩu</a></li>
+                <li><a class="hover:text-green-500" onclick="showTab('address')">Địa Chỉ</a></li>
+            </ul>
+        </div>
+
+        <!-- Right Content (Dynamic Tab Content) -->
+        <div class="w-3/4 bg-white p-6 rounded-lg shadow-md ml-6" id="content-area" style="min-height: 550px;">
+            <!-- Hồ Sơ -->
+            <div id="profile" class="tab-content ml-5 mt-4">
+                <h2 class="text-3xl font-semibold text-gray-800 mb-2">Hồ Sơ Của Tôi</h2>
+                <h6 class="text-sm font-semibold text-gray-500 mb-6">Quản lý thông tin hồ sơ để bảo mật tài khoản</h6>
+                <div class="flex mt-6">
+                    <!-- Left Column -->
+                    <div class="w-2/3 space-y-4">
+                        <p class="mb-4"><strong>Họ và tên:</strong> @Model.Customer.LastName @Model.Customer.FirstName
+                        </p>
+                        <p class="mb-4"><strong>Email:</strong> @StringHelper.MaskEmail(Model.Customer.Email)</p>
+                        <p class="mb-4"><strong>Số Điện
+                                Thoại:</strong> @StringHelper.MaskPhoneNumber(Model.Customer.PhoneNumber)</p>
+                        <p class="mb-4"><strong>Giới Tính:</strong> @Model.Customer.Gender</p>
+                        <p class="mb-4"><strong>Ngày Sinh:</strong> @Model.Customer.Dob</p>
+                        <button class="bg-green-500 text-white px-6 py-2 rounded-md hover:bg-green-400 font-bold my-10"
+                                onclick="openModal('profile-modal')">
+                            Thay Đổi Thông Tin
+                        </button>
+                    </div>
+
+                    <!-- Right Column -->
+                    <div class="w-1/3 flex flex-col items-center">
+                        <!-- Avatar -->
+                        <div class="relative">
+                            <img id="avatar-preview" src="@Model.Customer.Picture" alt="Avatar"
+                                 class="w-32 h-32 rounded-full object-cover border border-gray-300">
+                            <div
+                                class="absolute inset-0 bg-gray-500 bg-opacity-10 rounded-full flex items-center justify-center opacity-0 hover:opacity-100 transition">
+                                <button onclick="document.getElementById('avatar-input').click()"
+                                        class="text-white bg-black bg-opacity-60 px-4 py-1 rounded-md text-sm">Thay Ảnh
+                                </button>
+                            </div>
+                        </div>
+                        <!-- Upload Button -->
+                        <input id="avatar-input" type="file" class="hidden" accept="image/*"
+                               onchange="previewAvatar(event)">
+                        <button onclick="document.getElementById('avatar-input').click()"
+                                class="bg-green-500 text-white mt-4 px-4 py-2 font-bold rounded-md hover:bg-blue-400">
+                            Chọn Ảnh
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- Đổi Mật Khẩu -->
+            <div id="change-password" class="tab-content hidden">
+                <h2 class="text-3xl font-semibold text-gray-800 mb-6">Đổi Mật Khẩu</h2>
+                <form method="post" asp-action="ChangePassword">
+                    <div class="mb-4">
+                        <label for="current-password" class="block text-gray-700 font-semibold ml-2 mb-1">Nhập Mật Khẩu
+                            Hiện Tại</label>
+                        <input name="oldPassword" type="password" id="current-password"
+                               class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
+                               placeholder="Nhập mật khẩu hiện tại">
+                    </div>
+                    <div class="mb-4">
+                        <label for="new-password" class="block text-gray-700 font-semibold ml-2 mb-1">Mật Khẩu
+                            Mới</label>
+                        <input name="newPassword" type="password" id="new-password"
+                               class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
+                               placeholder="Nhập mật khẩu mới">
+                    </div>
+                    <div class="mb-4">
+                        <label for="confirm-password" class="block text-gray-700 font-semibold ml-2 mb-1">Xác Nhận Mật
+                            Khẩu Mới</label>
+                        <input name="confirmPassword" type="password" id="confirm-password"
+                               class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
+                               placeholder="Xác nhận mật khẩu mới">
+                    </div>
+                    <div class="mb-4">
+                        <label id="noti-password" class="block text-red-700 font-semibold ml-2 mb-1">
+                            @TempData["wrongPass"]
+                        </label>
+                    </div>
+                    <div class="mt-6 flex justify-end">
+                        <button class="bg-green-600 text-white px-6 py-2 rounded-lg hover:bg-green-500">Lưu</button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Địa Chỉ -->
+            <div id="address" class="tab-content hidden">
+                <h2 class="text-3xl font-semibold text-gray-800 mb-6">Địa Chỉ</h2>
+                <div class="space-y-4">
+                    <button class="bg-green-500 text-white px-6 py-2 rounded-md hover:bg-green-400"
+                            onclick="openModal('address-modal')">Thêm Địa Chỉ
+                    </button>
+                    <div class="space-y-4 mt-6">
+                        @foreach (var address in Model.ListAddresses)
+                        {
+                            <div class="flex justify-between border p-4 rounded-lg">
+                                <div class="flex-grow">
+                                    <p><strong>Tên người nhận:</strong> @address.Receiver</p>
+                                    <p><strong>Số điện thoại:</strong> @address.ShipPhone</p>
+                                    <p><strong>Địa chỉ:</strong> @address.ShipAddress</p>
+                                </div>
+                                <div class="flex flex-col justify-between items-end">
+                                    <div class="flex gap-2">
+                                        <button
+                                            class="text-blue-500 text-center px-4 py-2 rounded-md border border-blue-500"
+                                            onclick="openModal('update-address-modal')">Cập nhật
+                                        </button>
+                                        @if ((bool)!address.IsDefault)
+                                        {
+                                            <a class="text-green-500 text-center px-4 py-2 rounded-md border border-green-500"
+                                               asp-controller="Auth"
+                                               asp-action="setDefaultAddess"
+                                               asp-route-addessId="@address.AddressId"
+                                               asp-route-customerId="@Model.Customer.CustomerId">Cài mặc định
+                                            </a>
+                                        }
+                                        else
+                                        {
+                                            <span class="text-green-500 px-2 py-2">Mặc định</span>
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Thay Đổi Thông Tin Hồ Sơ -->
+<div id="profile-modal" class="modal hidden fixed inset-0 bg-gray-500 bg-opacity-50 flex justify-center items-center">
+    <div class="bg-white p-6 rounded-lg shadow-md w-3/4 max-w-2xl">
+        <h3 class="text-xl font-semibold mb-4">Thay Đổi Thông Tin Hồ Sơ</h3>
+        <form method="post" asp-action="UpdateProfile" enctype="multipart/form-data">
+            <div class="mb-3">
+                <label for="first-name" class="block text-gray-700 font-semibold">First Name</label>
+                <input asp-for="Customer.FirstName" type="text" id="firstname"
+                       class="w-full px-4 py-3 border border-gray-300 rounded-lg" placeholder="Nhập tên mới">
+            </div>
+            <div class="mb-3">
+                <label for="last-name" class="block text-gray-700 font-semibold">Last Name</label>
+                <input asp-for="Customer.LastName" type="text" id="lastname"
+                       class="w-full px-4 py-3 border border-gray-300 rounded-lg" placeholder="Nhập tên mới">
+            </div>
+            <div class="mb-3">
+                <label for="email" class="block text-gray-700 font-semibold">Email</label>
+                <input asp-for="Customer.Email" type="email" id="email"
+                       class="w-full px-4 py-3 border border-gray-300 rounded-lg" placeholder="Nhập email mới">
+            </div>
+            <div class="mb-3">
+                <label for="phone" class="block text-gray-700 font-semibold">Số Điện Thoại</label>
+                <input asp-for="Customer.PhoneNumber" type="text" id="phone"
+                       class="w-full px-4 py-3 border border-gray-300 rounded-lg" placeholder="Nhập số điện thoại mới">
+            </div>
+            <div class="mb-3">
+                <label class="block text-gray-700 font-semibold">Giới Tính</label>
+                <div class="flex space-x-4">
+                    <label>
+                        <input asp-for="Customer.Gender" type="radio" name="gender" value="male" id="gender_male"> Nam
+                    </label>
+                    <label>
+                        <input asp-for="Customer.Gender" type="radio" name="gender" value="female" id="gender_female">
+                        Nữ
+                    </label>
+                    <label>
+                        <input asp-for="Customer.Gender" type="radio" name="gender" value="other" id="gender_other">
+                        Khác
+                    </label>
+                </div>
+            </div>
+            <div class="mb-3">
+                <label for="dob" class="block text-gray-700 font-semibold">Ngày Sinh</label>
+                <input asp-for="Customer.Dob" type="date" id="dob"
+                       class="w-full px-4 py-3 border border-gray-300 rounded-lg">
+            </div>
+            <div class="mb-2">
+                <label id="noti-updateProfile" class="block text-red-700 font-semibold ml-2 mb-1">
+                    @TempData["updateMess"]
+                </label>
+            </div>
+            <div class="mt-2 flex justify-end">
+                <button type="button" data-close-modal="profile-modal"
+                        class="ml-2 mr-3 px-6 py-2 bg-gray-500 text-white rounded-lg hover:bg-gray-400">Đóng
+                </button>
+                <button type="submit" class="bg-green-500 text-white px-6 py-2 rounded-md hover:bg-green-400">Lưu
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Modal Cập Nhật Địa Chỉ -->
+<div id="update-address-modal"
+     class="modal hidden fixed inset-0 bg-gray-500 bg-opacity-50 flex justify-center items-center">
+    <div class="bg-white p-6 rounded-lg shadow-md w-1/3">
+        <h3 class="text-xl font-semibold mb-4">Cập Nhật Địa Chỉ</h3>
+        <form asp-controller="Auth" asp-action="UpdateAddress" enctype="multipart/form-data">
+            <div class="mb-4">
+                <label for="address-name" class="block text-gray-700 font-semibold">Tên Người Nhận</label>
+                <input type="text" id="address-name" class="w-full px-4 py-3 border border-gray-300 rounded-lg"
+                       placeholder="Nhập tên người nhận">
+            </div>
+            <div class="mb-4">
+                <label for="address-phone" class="block text-gray-700 font-semibold">Số Điện Thoại</label>
+                <input type="text" id="address-phone" class="w-full px-4 py-3 border border-gray-300 rounded-lg"
+                       placeholder="Nhập số điện thoại">
+            </div>
+            <div class="mb-4">
+                <label for="address-detail" class="block text-gray-700 font-semibold">Địa Chỉ</label>
+                <input type="text" id="address-detail" class="w-full px-4 py-3 border border-gray-300 rounded-lg"
+                       placeholder="Nhập địa chỉ cụ thể">
+            </div>
+            <div class="mt-4 flex justify-end">
+                <button type="button" data-close-modal="update-address-modal"
+                        class="ml-2 mr-3 px-6 py-2 bg-gray-500 text-white rounded-lg hover:bg-gray-400">Đóng
+                </button>
+                <button type="button" class="bg-green-500 text-white px-6 py-2 rounded-md hover:bg-green-400">Lưu
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Modal Thêm Địa Chỉ -->
+<div id="address-modal" class="modal hidden fixed inset-0 bg-gray-500 bg-opacity-50 flex justify-center items-center">
+    <div class="bg-white p-6 rounded-lg shadow-md w-1/3">
+        <h3 class="text-xl font-semibold mb-4">Thêm Địa Chỉ</h3>
+        <form method="post" asp-controller="Auth" asp-action="CreateAddress" enctype="multipart/form-data">
+            <div class="mb-4">
+                <label for="new-address-name" class="block text-gray-700 font-semibold">Tên Người Nhận</label>
+                <input asp-for="Address.Receiver" type="text" id="new-address-name"
+                       class="w-full px-4 py-3 border border-gray-300 rounded-lg"
+                       placeholder="Nhập tên người nhận">
+            </div>
+            <div class="mb-4">
+                <label for="new-address-phone" class="block text-gray-700 font-semibold">Số Điện Thoại</label>
+                <input asp-for="Address.ShipPhone" type="text" id="new-address-phone"
+                       class="w-full px-4 py-3 border border-gray-300 rounded-lg"
+                       placeholder="Nhập số điện thoại">
+            </div>
+            <div class="mb-4">
+                <label for="new-address-detail" class="block text-gray-700 font-semibold">Địa Chỉ</label>
+                <input asp-for="Address.ShipAddress" type="text" id="new-address-detail"
+                       class="w-full px-4 py-3 border border-gray-300 rounded-lg"
+                       placeholder="Nhập địa chỉ cụ thể">
+            </div>
+            <div class="mt-4 flex justify-end">
+                <button type="button" data-close-modal="address-modal"
+                        class="ml-2 mr-3 px-6 py-2 bg-gray-500 text-white rounded-lg hover:bg-gray-400">Đóng
+                </button>
+                <button type="submit" class="bg-green-500 text-white px-6 py-2 rounded-md hover:bg-green-400">Lưu
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+
+    // Khi trang được tải, kiểm tra xem có tab nào cần hiển thị không
+    document.addEventListener("DOMContentLoaded", function () {
+        var activeTab = '@TempData["ActiveTab"]';
+        if (activeTab) {
+            showTab(activeTab);
+        }
+
+        var successMessage = '@TempData["SuccessMessage"]';
+        if (successMessage) {
+            alert("Đổi mật khẩu thành công!"); // Hiển thị thông báo thành công, bạn có thể sử dụng cách khác để hiển thị
+        }
+    });
+
+    // Khi trang được tải, kiểm tra xem có tab nào cần hiển thị không
+    document.addEventListener("DOMContentLoaded", function () {
+        var update = '@TempData["UpdateProfile"]';
+        if (update) {
+            openModal(update);
+        }
+
+        var successMessage = '@TempData["updateDone"]';
+        if (successMessage) {
+            alert("Cập nhật thành công!"); // Hiển thị thông báo thành công, bạn có thể sử dụng cách khác để hiển thị
+        }
+    });
+
+    // Hàm để thay đổi nội dung hiển thị khi chọn tab
+    function showTab(tabName) {
+        // Ẩn tất cả các tab nội dung
+        const allTabs = document.querySelectorAll('.tab-content');
+        allTabs.forEach(tab => {
+            tab.classList.add('hidden');
+        });
+
+        // Hiển thị tab đã chọn
+        const selectedTab = document.getElementById(tabName);
+        if (selectedTab) {
+            selectedTab.classList.remove('hidden');
+        }
+    }
+
+    function previewAvatar(event) {
+        const file = event.target.files[0];
+        if (file) {
+            // Hiển thị ảnh xem trước
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                document.getElementById('avatar-preview').src = e.target.result;
+            };
+            reader.readAsDataURL(file);
+
+            // Gửi ảnh qua AJAX
+            const formData = new FormData();
+            formData.append("avatar", file);
+
+            fetch("/User/UpdateAvatar", {
+                method: "POST",
+                body: formData,
+            })
+                .then((response) => response.json())
+                .then((data) => {
+                    if (data.success) {
+                        alert("Cập nhật ảnh thành công!");
+                    } else {
+                        alert(data.message || "Có lỗi xảy ra khi cập nhật ảnh.");
+                    }
+                })
+                .catch((error) => {
+                    console.error("Error uploading avatar:", error);
+                    alert("Có lỗi xảy ra khi kết nối server.");
+                });
+        }
+    }
+
+    function previewAvatar(event) {
+        const file = event.target.files[0];
+        if (file) {
+            // Hiển thị ảnh xem trước
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                document.getElementById('avatar-preview').src = e.target.result;
+            };
+            reader.readAsDataURL(file);
+
+            // Gửi ảnh qua AJAX
+            const formData = new FormData();
+            formData.append("avatar", file);
+
+            fetch("/auth/UpdateAvatar", {
+                method: "POST",
+                body: formData,
+            })
+                .then((response) => response.json())
+                .then((data) => {
+                    if (data.success) {
+                        alert("Cập nhật ảnh thành công!");
+                    } else {
+                        alert(data.message || "Có lỗi xảy ra khi cập nhật ảnh.");
+                    }
+                })
+                .catch((error) => {
+                    console.error("Error uploading avatar:", error);
+                    alert("Có lỗi xảy ra khi kết nối server.");
+                });
+        }
+    }
+
+    // Mở Modal
+    function openModal(modalId) {
+        const modal = document.getElementById(modalId);
+        if (modal) {
+            modal.classList.remove('hidden'); // Xóa lớp 'hidden' để hiện Modal
+        }
+    }
+
+    // Lấy tất cả các nút "Đóng" modal
+    const closeButtons = document.querySelectorAll('[data-close-modal]');
+
+    // Thêm sự kiện click cho từng nút
+    closeButtons.forEach(button => {
+        button.addEventListener('click', function () {
+            const modalId = this.getAttribute('data-close-modal'); // Lấy id modal từ data-close-modal
+            const modal = document.getElementById(modalId); // Tìm modal tương ứng
+            if (modal) {
+                modal.classList.add('hidden'); // Thêm lớp hidden để ẩn modal
+            }
+        });
+    });
+
+
+</script>

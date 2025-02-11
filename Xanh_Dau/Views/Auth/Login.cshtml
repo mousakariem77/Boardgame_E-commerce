@@ -1,0 +1,106 @@
+@{
+    ViewData["Title"] = "Login Page";
+    Layout = "~/Views/Shared/_LayoutEmpty.cshtml";
+}
+<link rel="stylesheet" href="~/css/site.css"/>
+<link rel="stylesheet" href="~/tailwind/build/tailwind.css">
+<link rel="stylesheet" href="~/fonts/boxicons.css"/>
+<script src="~/js/site.js"></script>
+
+<div class="bg-gradient-to-r from-green-200 to-blue-200 min-h-screen flex flex-col justify-center items-center">
+    <!-- Section tiêu đề và lời chào -->
+    <section class="text-dark py-6 w-full text-center">
+        <h1 class="text-4xl font-extrabold text-green-700">Chào mừng bạn trở lại Xanh Đấu!</h1>
+        <p class="mt-4 text-lg text-gray-700">Vui lòng đăng nhập để tiếp tục trải nghiệm game và các hoạt động bảo vệ
+            môi trường.</p>
+    </section>
+
+    <!-- Section form đăng nhập -->
+    <section class="w-full max-w-lg bg-white p-8 rounded-lg shadow-lg">
+        <!-- Form đăng nhập -->
+        <form method="post" class="space-y-6">
+            <!-- Trường Email -->
+            <div>
+                <label for="email" class="block text-gray-700 font-medium">Địa chỉ email</label>
+                <input type="email" id="email" name="email" placeholder="Nhập email của bạn"
+                       class="w-full mt-2 p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
+                       required/>
+            </div>
+
+            <!-- Trường Mật khẩu -->
+            <div>
+                <label for="password" class="block text-gray-700 font-medium">Mật khẩu</label>
+                <div class="relative">
+                    <input type="password" id="password" name="password" placeholder="Nhập mật khẩu của bạn"
+                           class="w-full mt-2 p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
+                           required/>
+                    <button type="button" class="absolute right-3 top-3 text-gray-500"
+                            onclick="togglePasswordVisibility()">
+                        <i id="password-eye" class="bx bx-hide pt-6"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Ghi nhớ và Quên mật khẩu -->
+            <div class="flex items-center justify-between">
+                <div class="flex items-center">
+                    <input type="checkbox" id="remember" name="remember" class="mr-2"/>
+                    <label for="remember" class="text-gray-600">Nhớ mật khẩu</label>
+                </div>
+                @* <a asp-controller="Auth" asp-action="ForgotPassword" class="text-sm text-green-500 hover:underline">Quên
+                    mật khẩu?</a> *@
+            </div>
+
+            <!-- Nút Đăng nhập -->
+            <div>
+                <button type="submit"
+                        class="w-full bg-green-700 text-white py-3 rounded-md font-semibold hover:bg-green-800 focus:outline-none focus:ring-2 focus:ring-green-500">
+                    Đăng nhập
+                </button>
+            </div>
+
+            <!-- Đăng ký tài khoản -->
+            <div class="text-center">
+                <p class="text-gray-600">Chưa có tài khoản? <a asp-controller="Auth" asp-action="Register"
+                                                               class="text-green-500 hover:underline">Đăng ký ngay</a>
+                </p>
+            </div>
+
+            <!-- Lời khuyên bảo mật -->
+            <div class="mt-6 text-sm text-gray-600">
+                <p><strong>Lời khuyên bảo mật:</strong></p>
+                <p>Hãy chắc chắn rằng bạn sử dụng mật khẩu mạnh để bảo vệ tài khoản của mình. Không chia sẻ mật
+                    khẩu với bất kỳ ai.</p>
+            </div>
+
+            <!-- Chính sách bảo mật -->
+            <div class="mt-4 text-sm text-gray-600 text-center">
+                <p><a asp-controller="Auth" asp-action="TOS" class="text-green-500 hover:underline">Đọc chính
+                        sách bảo mật của chúng tôi.</a></p>
+            </div>
+
+            <!-- Thông báo lỗi đăng nhập -->
+            <div id="login-error" class="hidden mt-4 text-red-600 text-sm">
+                <p>Tài khoản hoặc mật khẩu không đúng. Vui lòng thử lại.</p>
+            </div>
+        </form>
+    </section>
+</div>
+
+<!-- Đoạn mã JavaScript để ẩn/hiện mật khẩu -->
+<script>
+    function togglePasswordVisibility() {
+        const passwordField = document.getElementById('password');
+        const passwordEyeIcon = document.getElementById('password-eye');
+        if (passwordField.type === 'password') {
+            passwordField.type = 'text';
+            passwordEyeIcon.classList.remove('bx-show-alt');
+            passwordEyeIcon.classList.add('bx-hide');
+        } else {
+            passwordField.type = 'password';
+            passwordEyeIcon.classList.remove('bx-hide');
+            passwordEyeIcon.classList.add('bx-show-alt');
+        }
+    }
+</script>
+

@@ -1,0 +1,116 @@
+@{
+    ViewData["Title"] = "Terms of Service Page";
+    Layout = "~/Views/Shared/_LayoutEmpty.cshtml";
+}
+<link rel="stylesheet" href="~/css/site.css"/>
+<link rel="stylesheet" href="~/tailwind/build/tailwind.css">
+<link rel="stylesheet" href="~/fonts/boxicons.css"/>
+<script src="~/js/site.js"></script>
+
+<div class="TOS min-h-screen bg-gray-50 flex flex-col">
+    <!-- Header -->
+    <header class="bg-gradient-to-r from-green-600 to-green-500 text-white py-8 shadow-lg">
+        <div class="container mx-auto text-center px-6">
+            <h1 class="text-4xl md:text-5xl font-extrabold">Chào Mừng Bạn Đến Với Xanh Đấu</h1>
+            <p class="text-lg mt-3 text-white/80">Trang chính sách và hỗ trợ khách hàng</p>
+        </div>
+    </header>
+
+    <div class="flex flex-grow flex-wrap md:flex-nowrap">
+        <!-- Sidebar Tabs -->
+        <aside class="w-full md:w-1/4 bg-white p-6 shadow-md border-r border-gray-200">
+            <h3 class="text-2xl font-bold text-gray-800 mb-6">Chính Sách</h3>
+            <ul class="space-y-4">
+                <li>
+                    <button class="w-full text-left font-medium text-gray-700 hover:text-green-500 transition"
+                            onclick="showTab('privacy-policy')">Chính Sách Bảo Mật
+                    </button>
+                </li>
+                <li>
+                    <button class="w-full text-left font-medium text-gray-700 hover:text-green-500 transition"
+                            onclick="showTab('terms-of-use')">Điều Khoản Sử Dụng
+                    </button>
+                </li>
+            </ul>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="w-full md:w-3/4 bg-gray-50 p-8 md:p-10 overflow-auto">
+            <!-- Tab: Chính Sách Bảo Mật -->
+            <div id="privacy-policy" class="tab-content hidden">
+                <h2 class="text-3xl md:text-4xl font-bold text-green-700 mb-6">Chính Sách Bảo Mật</h2>
+                <div class="space-y-6">
+                    <!-- Accordion -->
+                    <div class="accordion-item">
+                        <button
+                            class="accordion-header w-full text-left py-3 px-4 bg-gray-100 hover:bg-gray-200 rounded-md font-medium text-gray-700"
+                            onclick="toggleAccordion(this)">Giới Thiệu
+                        </button>
+                        <div class="accordion-content hidden px-4 pt-4 pb-2 text-gray-600">
+                            <p>Chính sách bảo mật này được xây dựng nhằm bảo vệ quyền riêng tư của người dùng khi sử
+                                dụng dịch vụ của Xanh Đấu.</p>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <button
+                            class="accordion-header w-full text-left py-3 px-4 bg-gray-100 hover:bg-gray-200 rounded-md font-medium text-gray-700"
+                            onclick="toggleAccordion(this)">Khi nào Xanh Đấu sẽ thu thập dữ liệu cá nhân?
+                        </button>
+                        <div class="accordion-content hidden px-4 pt-4 pb-2 text-gray-600">
+                            <ul class="list-disc pl-6">
+                                <li>Bạn đăng ký tài khoản trên hệ thống.</li>
+                                <li>Bạn thực hiện giao dịch, mua sắm trên website.</li>
+                                <li>Bạn tham gia khảo sát hoặc gửi phản hồi qua biểu mẫu.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- Add more accordions as needed -->
+                </div>
+            </div>
+
+            <!-- Tab: Điều Khoản Sử Dụng -->
+            <div id="terms-of-use" class="tab-content hidden">
+                <h2 class="text-3xl md:text-4xl font-bold text-green-700 mb-6">Điều Khoản Dịch Vụ</h2>
+                <div class="space-y-6">
+                    <div class="accordion-item">
+                        <button
+                            class="accordion-header w-full text-left py-3 px-4 bg-gray-100 hover:bg-gray-200 rounded-md font-medium text-gray-700"
+                            onclick="toggleAccordion(this)">Giới Thiệu
+                        </button>
+                        <div class="accordion-content hidden px-4 pt-4 pb-2 text-gray-600">
+                            <p>Điều khoản dịch vụ này được thiết lập để đảm bảo quyền lợi của cả hai bên.</p>
+                        </div>
+                    </div>
+                    <!-- Add more accordions as needed -->
+                </div>
+            </div>
+        </main>
+    </div>
+</div>
+
+
+<!-- JavaScript -->
+<script>
+    function showTab(tabId) {
+        // Ẩn tất cả nội dung tab
+        document.querySelectorAll('.tab-content').forEach(tab => tab.classList.add('hidden'));
+        // Hiển thị nội dung tab được chọn
+        document.getElementById(tabId).classList.remove('hidden');
+    }
+
+    function toggleAccordion(element) {
+        const content = element.nextElementSibling;
+        const isOpen = !content.classList.contains('hidden');
+
+        // Thu gọn tất cả accordion khác trong tab hiện tại
+        element.closest('.tab-content').querySelectorAll('.accordion-content').forEach(item => item.classList.add('hidden'));
+
+        // Đóng/mở accordion được chọn
+        if (!isOpen) {
+            content.classList.remove('hidden');
+        }
+    }
+
+    // Hiển thị tab đầu tiên mặc định
+    showTab('privacy-policy');
+</script>

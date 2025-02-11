@@ -1,0 +1,389 @@
+{
+  "Files": [
+    {
+      "Id": "D:\\Remake_Xanh_Dau\\Xanh_Dau\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\Xanh_Dau.bundle.scp.css",
+      "PackagePath": "staticwebassets\\Xanh_Dau.bundle.scp.css"
+    },
+    {
+      "Id": "D:\\Remake_Xanh_Dau\\Xanh_Dau\\wwwroot\\css\\site.css",
+      "PackagePath": "staticwebassets\\css\\site.css"
+    },
+    {
+      "Id": "D:\\Remake_Xanh_Dau\\Xanh_Dau\\wwwroot\\favicon.ico",
+      "PackagePath": "staticwebassets\\favicon.ico"
+    },
+    {
+      "Id": "D:\\Remake_Xanh_Dau\\Xanh_Dau\\wwwroot\\fonts\\PlaywriteAUSA-VariableFont_wght.ttf",
+      "PackagePath": "staticwebassets\\fonts\\PlaywriteAUSA-VariableFont_wght.ttf"
+    },
+    {
+      "Id": "D:\\Remake_Xanh_Dau\\Xanh_Dau\\wwwroot\\fonts\\Poppins-Regular.ttf",
+      "PackagePath": "staticwebassets\\fonts\\Poppins-Regular.ttf"
+    },
+    {
+      "Id": "D:\\Remake_Xanh_Dau\\Xanh_Dau\\wwwroot\\fonts\\boxicons.css",
+      "PackagePath": "staticwebassets\\fonts\\boxicons.css"
+    },
+    {
+      "Id": "D:\\Remake_Xanh_Dau\\Xanh_Dau\\wwwroot\\fonts\\boxicons\\boxicons.eot",
+      "PackagePath": "staticwebassets\\fonts\\boxicons\\boxicons.eot"
+    },
+    {
+      "Id": "D:\\Remake_Xanh_Dau\\Xanh_Dau\\wwwroot\\fonts\\boxicons\\boxicons.svg",
+      "PackagePath": "staticwebassets\\fonts\\boxicons\\boxicons.svg"
+    },
+    {
+      "Id": "D:\\Remake_Xanh_Dau\\Xanh_Dau\\wwwroot\\fonts\\boxicons\\boxicons.ttf",
+      "PackagePath": "staticwebassets\\fonts\\boxicons\\boxicons.ttf"
+    },
+    {
+      "Id": "D:\\Remake_Xanh_Dau\\Xanh_Dau\\wwwroot\\fonts\\boxicons\\boxicons.woff",
+      "PackagePath": "staticwebassets\\fonts\\boxicons\\boxicons.woff"
+    },
+    {
+      "Id": "D:\\Remake_Xanh_Dau\\Xanh_Dau\\wwwroot\\fonts\\boxicons\\boxicons.woff2",
+      "PackagePath": "staticwebassets\\fonts\\boxicons\\boxicons.woff2"
+    },
+    {
+      "Id": "D:\\Remake_Xanh_Dau\\Xanh_Dau\\wwwroot\\img\\Card_2.png",
+      "PackagePath": "staticwebassets\\img\\Card_2.png"
+    },
+    {
+      "Id": "D:\\Remake_Xanh_Dau\\Xanh_Dau\\wwwroot\\img\\Card_3.png",
+      "PackagePath": "staticwebassets\\img\\Card_3.png"
+    },
+    {
+      "Id": "D:\\Remake_Xanh_Dau\\Xanh_Dau\\wwwroot\\img\\Chu.jpg",
+      "PackagePath": "staticwebassets\\img\\Chu.jpg"
+    },
+    {
+      "Id": "D:\\Remake_Xanh_Dau\\Xanh_Dau\\wwwroot\\img\\My.jpg",
+      "PackagePath": "staticwebassets\\img\\My.jpg"
+    },
+    {
+      "Id": "D:\\Remake_Xanh_Dau\\Xanh_Dau\\wwwroot\\img\\Thai.jpg",
+      "PackagePath": "staticwebassets\\img\\Thai.jpg"
+    },
+    {
+      "Id": "D:\\Remake_Xanh_Dau\\Xanh_Dau\\wwwroot\\img\\Tran.jpg",
+      "PackagePath": "staticwebassets\\img\\Tran.jpg"
+    },
+    {
+      "Id": "D:\\Remake_Xanh_Dau\\Xanh_Dau\\wwwroot\\img\\about_1.jpg",
+      "PackagePath": "staticwebassets\\img\\about_1.jpg"
+    },
+    {
+      "Id": "D:\\Remake_Xanh_Dau\\Xanh_Dau\\wwwroot\\img\\about_2.jpg",
+      "PackagePath": "staticwebassets\\img\\about_2.jpg"
+    },
+    {
+      "Id": "D:\\Remake_Xanh_Dau\\Xanh_Dau\\wwwroot\\img\\about_3.jpg",
+      "PackagePath": "staticwebassets\\img\\about_3.jpg"
+    },
+    {
+      "Id": "D:\\Remake_Xanh_Dau\\Xanh_Dau\\wwwroot\\img\\about_4.jpg",
+      "PackagePath": "staticwebassets\\img\\about_4.jpg"
+    },
+    {
+      "Id": "D:\\Remake_Xanh_Dau\\Xanh_Dau\\wwwroot\\img\\avatar.jpg",
+      "PackagePath": "staticwebassets\\img\\avatar.jpg"
+    },
+    {
+      "Id": "D:\\Remake_Xanh_Dau\\Xanh_Dau\\wwwroot\\img\\kariem.jpg",
+      "PackagePath": "staticwebassets\\img\\kariem.jpg"
+    },
+    {
+      "Id": "D:\\Remake_Xanh_Dau\\Xanh_Dau\\wwwroot\\img\\logo.png",
+      "PackagePath": "staticwebassets\\img\\logo.png"
+    },
+    {
+      "Id": "D:\\Remake_Xanh_Dau\\Xanh_Dau\\wwwroot\\img\\mascot.png",
+      "PackagePath": "staticwebassets\\img\\mascot.png"
+    },
+    {
+      "Id": "D:\\Remake_Xanh_Dau\\Xanh_Dau\\wwwroot\\js\\site.js",
+      "PackagePath": "staticwebassets\\js\\site.js"
+    },
+    {
+      "Id": "D:\\Remake_Xanh_Dau\\Xanh_Dau\\wwwroot\\lib\\bootstrap\\LICENSE",
+      "PackagePath": "staticwebassets\\lib\\bootstrap"
+    },
+    {
+      "Id": "D:\\Remake_Xanh_Dau\\Xanh_Dau\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css"
+    },
+    {
+      "Id": "D:\\Remake_Xanh_Dau\\Xanh_Dau\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css.map"
+    },
+    {
+      "Id": "D:\\Remake_Xanh_Dau\\Xanh_Dau\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css"
+    },
+    {
+      "Id": "D:\\Remake_Xanh_Dau\\Xanh_Dau\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css.map"
+    },
+    {
+      "Id": "D:\\Remake_Xanh_Dau\\Xanh_Dau\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css"
+    },
+    {
+      "Id": "D:\\Remake_Xanh_Dau\\Xanh_Dau\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css.map"
+    },
+    {
+      "Id": "D:\\Remake_Xanh_Dau\\Xanh_Dau\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css"
+    },
+    {
+      "Id": "D:\\Remake_Xanh_Dau\\Xanh_Dau\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css.map"
+    },
+    {
+      "Id": "D:\\Remake_Xanh_Dau\\Xanh_Dau\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css"
+    },
+    {
+      "Id": "D:\\Remake_Xanh_Dau\\Xanh_Dau\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css.map"
+    },
+    {
+      "Id": "D:\\Remake_Xanh_Dau\\Xanh_Dau\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css"
+    },
+    {
+      "Id": "D:\\Remake_Xanh_Dau\\Xanh_Dau\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css.map"
+    },
+    {
+      "Id": "D:\\Remake_Xanh_Dau\\Xanh_Dau\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css"
+    },
+    {
+      "Id": "D:\\Remake_Xanh_Dau\\Xanh_Dau\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css.map"
+    },
+    {
+      "Id": "D:\\Remake_Xanh_Dau\\Xanh_Dau\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css"
+    },
+    {
+      "Id": "D:\\Remake_Xanh_Dau\\Xanh_Dau\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css.map"
+    },
+    {
+      "Id": "D:\\Remake_Xanh_Dau\\Xanh_Dau\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css"
+    },
+    {
+      "Id": "D:\\Remake_Xanh_Dau\\Xanh_Dau\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css.map"
+    },
+    {
+      "Id": "D:\\Remake_Xanh_Dau\\Xanh_Dau\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css"
+    },
+    {
+      "Id": "D:\\Remake_Xanh_Dau\\Xanh_Dau\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css.map"
+    },
+    {
+      "Id": "D:\\Remake_Xanh_Dau\\Xanh_Dau\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css"
+    },
+    {
+      "Id": "D:\\Remake_Xanh_Dau\\Xanh_Dau\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css.map"
+    },
+    {
+      "Id": "D:\\Remake_Xanh_Dau\\Xanh_Dau\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css"
+    },
+    {
+      "Id": "D:\\Remake_Xanh_Dau\\Xanh_Dau\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css.map"
+    },
+    {
+      "Id": "D:\\Remake_Xanh_Dau\\Xanh_Dau\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.css"
+    },
+    {
+      "Id": "D:\\Remake_Xanh_Dau\\Xanh_Dau\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.css.map"
+    },
+    {
+      "Id": "D:\\Remake_Xanh_Dau\\Xanh_Dau\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.min.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.min.css"
+    },
+    {
+      "Id": "D:\\Remake_Xanh_Dau\\Xanh_Dau\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.min.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.min.css.map"
+    },
+    {
+      "Id": "D:\\Remake_Xanh_Dau\\Xanh_Dau\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css"
+    },
+    {
+      "Id": "D:\\Remake_Xanh_Dau\\Xanh_Dau\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css.map"
+    },
+    {
+      "Id": "D:\\Remake_Xanh_Dau\\Xanh_Dau\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css"
+    },
+    {
+      "Id": "D:\\Remake_Xanh_Dau\\Xanh_Dau\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css.map"
+    },
+    {
+      "Id": "D:\\Remake_Xanh_Dau\\Xanh_Dau\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js"
+    },
+    {
+      "Id": "D:\\Remake_Xanh_Dau\\Xanh_Dau\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js.map"
+    },
+    {
+      "Id": "D:\\Remake_Xanh_Dau\\Xanh_Dau\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js"
+    },
+    {
+      "Id": "D:\\Remake_Xanh_Dau\\Xanh_Dau\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js.map"
+    },
+    {
+      "Id": "D:\\Remake_Xanh_Dau\\Xanh_Dau\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js"
+    },
+    {
+      "Id": "D:\\Remake_Xanh_Dau\\Xanh_Dau\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js.map"
+    },
+    {
+      "Id": "D:\\Remake_Xanh_Dau\\Xanh_Dau\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js"
+    },
+    {
+      "Id": "D:\\Remake_Xanh_Dau\\Xanh_Dau\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js.map"
+    },
+    {
+      "Id": "D:\\Remake_Xanh_Dau\\Xanh_Dau\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.js",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.js"
+    },
+    {
+      "Id": "D:\\Remake_Xanh_Dau\\Xanh_Dau\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.js.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.js.map"
+    },
+    {
+      "Id": "D:\\Remake_Xanh_Dau\\Xanh_Dau\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.min.js",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.min.js"
+    },
+    {
+      "Id": "D:\\Remake_Xanh_Dau\\Xanh_Dau\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.min.js.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.min.js.map"
+    },
+    {
+      "Id": "D:\\Remake_Xanh_Dau\\Xanh_Dau\\wwwroot\\lib\\jquery-validation-unobtrusive\\LICENSE.txt",
+      "PackagePath": "staticwebassets\\lib\\jquery-validation-unobtrusive\\LICENSE.txt"
+    },
+    {
+      "Id": "D:\\Remake_Xanh_Dau\\Xanh_Dau\\wwwroot\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.js",
+      "PackagePath": "staticwebassets\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.js"
+    },
+    {
+      "Id": "D:\\Remake_Xanh_Dau\\Xanh_Dau\\wwwroot\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.min.js",
+      "PackagePath": "staticwebassets\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.min.js"
+    },
+    {
+      "Id": "D:\\Remake_Xanh_Dau\\Xanh_Dau\\wwwroot\\lib\\jquery-validation\\LICENSE.md",
+      "PackagePath": "staticwebassets\\lib\\jquery-validation\\LICENSE.md"
+    },
+    {
+      "Id": "D:\\Remake_Xanh_Dau\\Xanh_Dau\\wwwroot\\lib\\jquery-validation\\dist\\additional-methods.js",
+      "PackagePath": "staticwebassets\\lib\\jquery-validation\\dist\\additional-methods.js"
+    },
+    {
+      "Id": "D:\\Remake_Xanh_Dau\\Xanh_Dau\\wwwroot\\lib\\jquery-validation\\dist\\additional-methods.min.js",
+      "PackagePath": "staticwebassets\\lib\\jquery-validation\\dist\\additional-methods.min.js"
+    },
+    {
+      "Id": "D:\\Remake_Xanh_Dau\\Xanh_Dau\\wwwroot\\lib\\jquery-validation\\dist\\jquery.validate.js",
+      "PackagePath": "staticwebassets\\lib\\jquery-validation\\dist\\jquery.validate.js"
+    },
+    {
+      "Id": "D:\\Remake_Xanh_Dau\\Xanh_Dau\\wwwroot\\lib\\jquery-validation\\dist\\jquery.validate.min.js",
+      "PackagePath": "staticwebassets\\lib\\jquery-validation\\dist\\jquery.validate.min.js"
+    },
+    {
+      "Id": "D:\\Remake_Xanh_Dau\\Xanh_Dau\\wwwroot\\lib\\jquery\\LICENSE.txt",
+      "PackagePath": "staticwebassets\\lib\\jquery\\LICENSE.txt"
+    },
+    {
+      "Id": "D:\\Remake_Xanh_Dau\\Xanh_Dau\\wwwroot\\lib\\jquery\\dist\\jquery.js",
+      "PackagePath": "staticwebassets\\lib\\jquery\\dist\\jquery.js"
+    },
+    {
+      "Id": "D:\\Remake_Xanh_Dau\\Xanh_Dau\\wwwroot\\lib\\jquery\\dist\\jquery.min.js",
+      "PackagePath": "staticwebassets\\lib\\jquery\\dist\\jquery.min.js"
+    },
+    {
+      "Id": "D:\\Remake_Xanh_Dau\\Xanh_Dau\\wwwroot\\lib\\jquery\\dist\\jquery.min.map",
+      "PackagePath": "staticwebassets\\lib\\jquery\\dist\\jquery.min.map"
+    },
+    {
+      "Id": "D:\\Remake_Xanh_Dau\\Xanh_Dau\\wwwroot\\logo.ico",
+      "PackagePath": "staticwebassets\\logo.ico"
+    },
+    {
+      "Id": "D:\\Remake_Xanh_Dau\\Xanh_Dau\\wwwroot\\tailwind\\build\\tailwind.css",
+      "PackagePath": "staticwebassets\\tailwind\\build\\tailwind.css"
+    },
+    {
+      "Id": "D:\\Remake_Xanh_Dau\\Xanh_Dau\\wwwroot\\tailwind\\css\\tailwind.css",
+      "PackagePath": "staticwebassets\\tailwind\\css\\tailwind.css"
+    },
+    {
+      "Id": "D:\\Remake_Xanh_Dau\\Xanh_Dau\\wwwroot\\tailwind\\package-lock.json",
+      "PackagePath": "staticwebassets\\tailwind\\package-lock.json"
+    },
+    {
+      "Id": "D:\\Remake_Xanh_Dau\\Xanh_Dau\\wwwroot\\tailwind\\package.json",
+      "PackagePath": "staticwebassets\\tailwind\\package.json"
+    },
+    {
+      "Id": "D:\\Remake_Xanh_Dau\\Xanh_Dau\\wwwroot\\tailwind\\postcss.config.js",
+      "PackagePath": "staticwebassets\\tailwind\\postcss.config.js"
+    },
+    {
+      "Id": "D:\\Remake_Xanh_Dau\\Xanh_Dau\\wwwroot\\tailwind\\tailwind.config.js",
+      "PackagePath": "staticwebassets\\tailwind\\tailwind.config.js"
+    },
+    {
+      "Id": "D:\\Remake_Xanh_Dau\\Xanh_Dau\\wwwroot\\uploads\\avatars\\user-avatar-hnbao3105@gmail.com.jpg",
+      "PackagePath": "staticwebassets\\uploads\\avatars\\user-avatar-hnbao3105@gmail.com.jpg"
+    },
+    {
+      "Id": "D:\\Remake_Xanh_Dau\\Xanh_Dau\\wwwroot\\video\\video.mp4",
+      "PackagePath": "staticwebassets\\video\\video.mp4"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.Xanh_Dau.Microsoft.AspNetCore.StaticWebAssets.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.build.Xanh_Dau.props",
+      "PackagePath": "build\\Xanh_Dau.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.buildMultiTargeting.Xanh_Dau.props",
+      "PackagePath": "buildMultiTargeting\\Xanh_Dau.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.buildTransitive.Xanh_Dau.props",
+      "PackagePath": "buildTransitive\\Xanh_Dau.props"
+    }
+  ],
+  "ElementsToRemove": []
+}

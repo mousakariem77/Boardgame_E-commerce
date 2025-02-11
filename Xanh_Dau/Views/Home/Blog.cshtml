@@ -1,0 +1,170 @@
+@{
+    ViewData["Title"] = "Blog Page";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link rel="stylesheet" href="~/css/site.css"/>
+<link rel="stylesheet" href="~/tailwind/build/tailwind.css">
+<link rel="stylesheet" href="~/fonts/boxicons.css"/>
+<script src="~/js/site.js"></script>
+
+<div class="bg-gray-100">
+
+    <!-- 1. Giới thiệu chung về Blog -->
+    <section class="bg-green-700 text-white py-16">
+        <div class="container mx-auto text-center">
+            <h1 class="text-4xl font-bold">Chào mừng đến với Blog Xanh Đấu</h1>
+            <p class="mt-4 text-lg">Nơi chia sẻ những câu chuyện, mẹo chơi game, cũng như những thông tin bổ ích về bảo
+                vệ môi trường và cách chúng ta có thể tạo ra thay đổi lớn từ những hành động nhỏ.</p>
+        </div>
+    </section>
+
+    <!-- 2. Danh mục bài viết -->
+    <section class="container mx-auto py-12">
+        <h2 class="text-3xl font-bold text-center text-gray-800">Danh mục bài viết</h2>
+        <div class="mt-8 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-8">
+            <button class="bg-green-700 text-white px-6 py-3 rounded-md hover:bg-green-600">Hướng dẫn chơi game</button>
+            <button class="bg-green-700 text-white px-6 py-3 rounded-md hover:bg-green-600">Tin tức về bảo vệ môi
+                trường
+            </button>
+            <button class="bg-green-700 text-white px-6 py-3 rounded-md hover:bg-green-600">Câu chuyện thành công từ
+                cộng đồng
+            </button>
+            <button class="bg-green-700 text-white px-6 py-3 rounded-md hover:bg-green-600">Khám phá Xanh Đấu</button>
+            <button class="bg-green-700 text-white px-6 py-3 rounded-md hover:bg-green-600">Sự kiện và hoạt động
+            </button>
+        </div>
+    </section>
+
+    <!-- 3. Danh sách các bài viết nổi bật -->
+    <section class="bg-white py-16">
+        <div class="container mx-auto">
+            <h2 class="text-3xl font-bold text-center text-gray-800">Bài viết nổi bật</h2>
+            <div class="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-12">
+                <!-- Bài viết 1 -->
+                <div class="bg-gray-100 rounded-lg overflow-hidden shadow-lg">
+                    <img src="path/to/article-image.jpg" alt="Bài viết 1" class="w-full h-56 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-2xl font-semibold text-gray-800">Cách chơi Xanh Đấu hiệu quả</h3>
+                        <p class="mt-4 text-gray-600">Hãy cùng khám phá những chiến thuật giúp bạn chiến thắng trong trò
+                            chơi Xanh Đấu và bảo vệ môi trường tốt hơn!</p>
+                        <a href="#" class="text-green-700 font-semibold hover:text-green-600 mt-4 inline-block">Đọc
+                            tiếp</a>
+                    </div>
+                </div>
+                <!-- Bài viết 2 -->
+                <div class="bg-gray-100 rounded-lg overflow-hidden shadow-lg">
+                    <img src="path/to/article-image2.jpg" alt="Bài viết 2" class="w-full h-56 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-2xl font-semibold text-gray-800">Tầm quan trọng của việc bảo vệ môi trường</h3>
+                        <p class="mt-4 text-gray-600">Mỗi hành động nhỏ đều có thể tạo ra sự khác biệt lớn. Hãy cùng
+                            Xanh Đấu tìm hiểu cách chúng ta có thể bảo vệ hành tinh của mình.</p>
+                        <a href="#" class="text-green-700 font-semibold hover:text-green-600 mt-4 inline-block">Đọc
+                            tiếp</a>
+                    </div>
+                </div>
+                <!-- Các bài viết khác -->
+            </div>
+        </div>
+    </section>
+
+    <!-- 4. Các bài viết cụ thể -->
+    <section class="container mx-auto py-16 bg-white">
+        <div class="flex flex-col lg:flex-row gap-12">
+            <!-- Hình ảnh bài viết -->
+            <div class="lg:w-1/2">
+                <img src="path/to/article-image-detail.jpg" alt="Bài viết chi tiết"
+                     class="w-full h-auto object-cover rounded-lg shadow-lg">
+            </div>
+
+            <!-- Nội dung bài viết -->
+            <div class="lg:w-1/2">
+                <h2 class="text-3xl font-bold text-gray-800">Cách chơi Xanh Đấu hiệu quả</h2>
+                <p class="mt-4 text-lg text-gray-600">Xanh Đấu không chỉ là trò chơi thú vị mà còn giúp người chơi hiểu
+                    về cách bảo vệ môi trường thông qua những hành động nhỏ. Dưới đây là một số chiến thuật hiệu quả khi
+                    chơi Xanh Đấu...</p>
+                <div class="mt-6">
+                    <h3 class="text-2xl font-semibold text-gray-800">Mẹo chơi Xanh Đấu</h3>
+                    <p class="mt-4 text-gray-600">Để chiến thắng trong trò chơi này, bạn cần phải...</p>
+                </div>
+                <div class="mt-6">
+                    <h3 class="text-2xl font-semibold text-gray-800">Thông tin hữu ích về bảo vệ môi trường</h3>
+                    <p class="mt-4 text-gray-600">Ngoài việc chơi game, bạn cũng có thể bảo vệ môi trường bằng
+                        cách...</p>
+                </div>
+                <div class="mt-8">
+                    <a href="https://link-to-product"
+                       class="bg-green-700 text-white px-6 py-3 rounded-md hover:bg-green-600">Khám phá ngay bộ
+                        boardgame Xanh Đấu</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 5. Chia sẻ câu chuyện cộng đồng -->
+    <section class="bg-gray-100 py-16">
+        <div class="container mx-auto text-center">
+            <h2 class="text-3xl font-bold text-gray-800">Câu chuyện cộng đồng</h2>
+            <p class="mt-4 text-lg text-gray-600">Cùng khám phá những câu chuyện thành công từ cộng đồng người chơi Xanh
+                Đấu, những sự kiện bảo vệ môi trường đầy ý nghĩa mà chúng ta đã tham gia.</p>
+            <div class="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-12">
+                <!-- Câu chuyện cộng đồng 1 -->
+                <div class="bg-white p-6 rounded-lg shadow-lg">
+                    <h3 class="text-xl font-semibold text-gray-800">Sự kiện bảo vệ môi trường tại TP.HCM</h3>
+                    <p class="mt-4 text-gray-600">Cộng đồng Xanh Đấu đã tổ chức một sự kiện thu gom rác thải tại TP.HCM,
+                        tạo ra những thay đổi tích cực cho môi trường...</p>
+                </div>
+                <!-- Câu chuyện cộng đồng 2 -->
+                <div class="bg-white p-6 rounded-lg shadow-lg">
+                    <h3 class="text-xl font-semibold text-gray-800">Câu chuyện thành công từ một nhóm game thủ</h3>
+                    <p class="mt-4 text-gray-600">Một nhóm bạn trẻ đã áp dụng các chiến lược từ Xanh Đấu để bảo vệ môi
+                        trường trong cộng đồng của mình...</p>
+                </div>
+                <!-- Các câu chuyện khác -->
+            </div>
+        </div>
+    </section>
+
+    <!-- 6. Sự kiện và chương trình đặc biệt -->
+    <section class="bg-green-700 text-white py-16">
+        <div class="container mx-auto text-center">
+            <h2 class="text-3xl font-bold">Sự kiện đặc biệt sắp tới</h2>
+            <p class="mt-4 text-lg">Đừng bỏ lỡ các sự kiện và chương trình thú vị của Xanh Đấu. Chúng tôi luôn có những
+                hoạt động mới mẻ dành cho bạn!</p>
+            <div class="mt-8">
+                <a href="#" class="bg-white text-green-700 px-6 py-3 rounded-md hover:bg-green-100">Tham gia ngay</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- 7. Khuyến mãi và ưu đãi đặc biệt -->
+    <section class="bg-gray-100 py-16">
+        <div class="container mx-auto text-center">
+            <h2 class="text-3xl font-bold text-gray-800">Khuyến mãi đặc biệt</h2>
+            <p class="mt-4 text-lg text-gray-600">Giảm giá 15% khi bạn tham gia sự kiện “Chơi Xanh Đấu, Nhận Quà Tặng”!
+                Đừng bỏ lỡ cơ hội này!</p>
+        </div>
+    </section>
+
+    <!-- 8. Đánh giá và ý kiến người chơi -->
+    <section class="bg-white py-16">
+        <div class="container mx-auto text-center">
+            <h2 class="text-3xl font-bold text-gray-800">Đánh giá và ý kiến của người chơi</h2>
+            <p class="mt-4 text-lg text-gray-600">Chia sẻ cảm nhận của bạn về sản phẩm Xanh Đấu và những trải nghiệm
+                tuyệt vời mà bạn đã có khi tham gia trò chơi này.</p>
+        </div>
+    </section>
+
+    <!-- 9. Newsletter đăng ký -->
+    <section class="bg-green-700 text-white py-16">
+        <div class="container mx-auto text-center">
+            <h2 class="text-3xl font-bold">Đăng ký nhận tin</h2>
+            <p class="mt-4 text-lg">Đừng bỏ lỡ bất kỳ tin tức thú vị nào từ Xanh Đấu. Đăng ký nhận email để cập nhật các
+                bài viết mới, chương trình khuyến mãi và sự kiện đặc biệt.</p>
+            <div class="mt-8">
+                <input type="email" placeholder="Nhập email của bạn"
+                       class="p-3 rounded-md text-gray-700 w-1/2 sm:w-1/3">
+                <button class="bg-white text-green-700 px-6 py-3 rounded-md hover:bg-green-100">Đăng ký</button>
+            </div>
+        </div>
+    </section>
+</div>

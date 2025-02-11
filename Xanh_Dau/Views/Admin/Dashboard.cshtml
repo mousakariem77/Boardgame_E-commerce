@@ -1,0 +1,222 @@
+@model Xanh_Dau.DTO.DashboardDTO
+@{
+    ViewData["Title"] = "Dashboard Page";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+<link rel="stylesheet" href="~/css/site.css"/>
+<link rel="stylesheet" href="~/tailwind/build/tailwind.css">
+<link rel="stylesheet" href="~/fonts/boxicons.css"/>
+<script src="~/js/site.js"></script>
+
+<div class="flex flex-col lg:flex-row h-screen bg-gray-100">
+
+    <!-- Main Content -->
+    <main class="flex-1 p-6 overflow-y-auto">
+        <h3 class="text-xl font-semibold text-gray-800 mb-6">Bảng điều khiển</h3>
+
+        <!-- Revenue Overview Card -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
+            <div class="bg-white p-6 rounded-lg shadow-lg border-l-4 border-blue-500">
+                <h3 class="text-xl font-semibold text-gray-800">Tổng Quan Doanh Thu</h3>
+                <p class="text-3xl font-bold text-gray-900 mt-4">
+                    @Model.TotalRevenue.ToString("N0")đ
+                </p>
+                <p class="text-gray-600 mt-2">Doanh thu hiện tại trong cả lúc phát triển đến nay</p>
+            </div>
+            <div class="bg-white p-6 rounded-lg shadow-lg border-l-4 border-green-500">
+                <h3 class="text-xl font-semibold text-gray-800">Thống Kê Đơn Hàng</h3>
+                <p class="text-3xl font-bold text-gray-900 mt-4">
+                    @Model.TotalOrders đơn hàng
+                </p>
+                <p class="text-gray-600 mt-2">Tổng số đơn hàng (không bao gồm đơn hủy)</p>
+            </div>
+            <div class="bg-white p-6 rounded-lg shadow-lg border-l-4 border-yellow-500">
+                <h3 class="text-xl font-semibold text-gray-800">Thống Kê Người Dùng</h3>
+                @{
+                    var countCustomers = 0;
+                    foreach (var customer in Model.ListCustomers)
+                    {
+                        countCustomers++;
+                    }
+                }
+                <p class="text-3xl font-bold text-gray-900 mt-4">@countCustomers người dùng</p>
+                <p class="text-gray-600 mt-2">Số lượng người dùng hiện tại</p>
+            </div>
+        </div>
+
+        <!-- Statistics Cards -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
+            <div class="bg-white p-6 rounded-lg shadow-lg border-l-4 border-purple-500">
+                <h3 class="text-xl font-semibold text-gray-800">Thống Kê Sản Phẩm</h3>
+                @{
+                    var countProducts = 0;
+                    foreach (var product in Model.ListProducts)
+                    {
+                        countProducts++;
+                    }
+                }
+                <p class="text-3xl font-bold text-gray-900 mt-4">@countProducts sản phẩm</p>
+                <p class="text-gray-600 mt-2">Số lượng sản phẩm đã có trong kho</p>
+            </div>
+            <div class="bg-white p-6 rounded-lg shadow-lg border-l-4 border-orange-500">
+                <h3 class="text-xl font-semibold text-gray-800">Doanh Thu Từ Khuyến Mãi</h3>
+                <p class="text-3xl font-bold text-gray-900 mt-4">$1,234</p>
+                <p class="text-gray-600 mt-2">Doanh thu từ các chương trình khuyến mãi</p>
+            </div>
+            <div class="bg-white p-6 rounded-lg shadow-lg border-l-4 border-teal-500">
+                <h3 class="text-xl font-semibold text-gray-800">Các Hoạt Động Gần Đây</h3>
+                <p class="text-gray-600 mt-2">Cập nhật hoạt động gần đây của bạn trong hệ thống</p>
+            </div>
+        </div>
+
+        <!-- Charts & Analytics (Placeholder) -->
+        <div class="bg-white p-6 rounded-lg shadow-lg mb-6">
+            <h3 class="text-xl font-semibold text-gray-800 mb-4">Biểu Đồ và Thống Kê</h3>
+            <div class="h-64 bg-gray-200 rounded-lg">
+                <!-- Placeholder for chart -->
+                <p class="text-gray-500 text-center py-28">Chart Placeholder</p>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 bg-gray-100 mb-4">
+            <!-- Active Coupon Codes -->
+            <div class="bg-white p-6 rounded-lg shadow-lg">
+                <h3 class="text-xl font-semibold text-gray-800 mb-4 flex justify-between items-center">
+                    <span>Mã giảm giá đang sử dụng</span>
+                    <a href="#" class="text-sm text-blue-600 hover:underline">Xem tất cả</a>
+                </h3>
+                <table class="w-full text-left">
+                    <thead>
+                    <tr class="text-gray-500 text-sm">
+                        <th class="py-2">Tên mã</th>
+                        <th class="py-2">Giảm</th>
+                        <th class="py-2">Hết hạn</th>
+                        <th class="py-2">Lượt còn</th>
+                    </tr>
+                    </thead>
+                    <tbody class="text-gray-700 text-sm">
+                    <tr class="border-t">
+                        <td class="py-2">SUMMER50</td>
+                        <td class="py-2">50%</td>
+                        <td class="py-2">30/11/2024</td>
+                        <td class="py-2">5</td>
+                    </tr>
+                    <tr class="border-t">
+                        <td class="py-2">WELCOME10</td>
+                        <td class="py-2">10%</td>
+                        <td class="py-2">31/12/2024</td>
+                        <td class="py-2">12</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Website Traffic Overview -->
+            <div class="bg-white p-6 rounded-lg shadow-lg">
+                <h3 class="text-xl font-semibold text-gray-800 mb-4 flex justify-between items-center">
+                    <span>Thống kê hoạt động website</span>
+                    <a href="#" class="text-sm text-blue-600 hover:underline">Xem chi tiết</a>
+                </h3>
+                <table class="w-full text-left">
+                    <thead>
+                    <tr class="text-gray-500 text-sm">
+                        <th class="py-2">Ngày</th>
+                        <th class="py-2">Truy cập</th>
+                        <th class="py-2">Xem trang</th>
+                        <th class="py-2">Tỉ lệ thoát</th>
+                    </tr>
+                    </thead>
+                    <tbody class="text-gray-700 text-sm">
+                    <tr class="border-t">
+                        <td class="py-2">22/11/2024</td>
+                        <td class="py-2">1,200</td>
+                        <td class="py-2">3,500</td>
+                        <td class="py-2">45%</td>
+                    </tr>
+                    <tr class="border-t">
+                        <td class="py-2">21/11/2024</td>
+                        <td class="py-2">980</td>
+                        <td class="py-2">2,800</td>
+                        <td class="py-2">38%</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Recent Orders -->
+        <div class="bg-white p-6 rounded-lg shadow-lg mb-3">
+            <h3 class="text-xl font-semibold text-gray-800 mb-4 flex justify-between items-center">
+                <span>Đơn hàng mới nhất</span>
+                <a href="#" class="text-sm text-blue-600 hover:underline">Xem tất cả</a>
+            </h3>
+            <table class="w-full text-left">
+                <thead>
+                <tr class="text-gray-500 text-sm">
+                    <th class="py-2">Mã đơn</th>
+                    <th class="py-2">Khách hàng</th>
+                    <th class="py-2">Ngày</th>
+                    <th class="py-2">Trạng thái</th>
+                    <th class="py-2 text-right">Tổng</th>
+                </tr>
+                </thead>
+                <tbody class="text-gray-700 text-sm">
+                <tr class="border-t">
+                    <td class="py-2">#001</td>
+                    <td class="py-2">Nguyễn Văn A</td>
+                    <td class="py-2">22/11/2024</td>
+                    <td class="py-2 text-yellow-500">Đang xử lý</td>
+                    <td class="py-2 text-right">500,000đ</td>
+                </tr>
+                <tr class="border-t">
+                    <td class="py-2">#002</td>
+                    <td class="py-2">Trần Thị B</td>
+                    <td class="py-2">21/11/2024</td>
+                    <td class="py-2 text-green-500">Đã giao</td>
+                    <td class="py-2 text-right">1,200,000đ</td>
+                </tr>
+                <tr class="border-t">
+                    <td class="py-2">#003</td>
+                    <td class="py-2">Lê C</td>
+                    <td class="py-2">20/11/2024</td>
+                    <td class="py-2 text-red-500">Đã hủy</td>
+                    <td class="py-2 text-right">0đ</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- New Users -->
+        <div class="bg-white p-6 rounded-lg shadow-lg mb-3">
+            <h3 class="text-xl font-semibold text-gray-800 mb-4 flex justify-between items-center">
+                <span>Người dùng mới đăng ký</span>
+                <a asp-controller="Admin" asp-action="Customer" class="text-sm text-blue-600 hover:underline">Xem tất
+                    cả</a>
+            </h3>
+            <table class="w-full text-left">
+                <thead>
+                <tr class="text-gray-500 text-sm">
+                    <th class="py-2">Tên</th>
+                    <th class="py-2">Email</th>
+                    <th class="py-2">Ngày</th>
+                    <th class="py-2">Trạng thái</th>
+                </tr>
+                </thead>
+                <tbody class="text-gray-700 text-sm">
+                @{
+                    foreach (var customer in Model.ListCustomers.OrderByDescending(c => c.CreatedAt))
+                    {
+                        <tr class="border-t">
+                            <td class="py-2">@customer.FirstName @customer.LastName</td>
+                            <td class="py-2">@customer.Email</td>
+                            <td class="py-2">@customer.Dob</td>
+                            <td class="py-2 text-green-500">@customer.Status</td>
+                        </tr>
+                    }
+                }
+                </tbody>
+            </table>
+        </div>
+
+    </main>
+</div>

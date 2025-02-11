@@ -1,0 +1,54 @@
+@model Xanh_Dau.DTO.CategoryDTO
+@{
+    ViewData["Title"] = "Category Detail Page";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+<link rel="stylesheet" href="~/css/site.css"/>
+<link rel="stylesheet" href="~/tailwind/build/tailwind.css">
+<link rel="stylesheet" href="~/fonts/boxicons.css"/>
+<script src="~/js/site.js"></script>
+
+<div class="admin_category-detail min-h-screen bg-gray-50 py-6 px-6">
+    <div class="category-detail-container max-w-7xl mx-auto bg-white shadow-md rounded-lg p-6 pt-1">
+        <h3 class="text-xl font-semibold text-gray-800 mb-3">Xem chi tiết danh mục</h3>
+        
+        <div class="w-full">
+            <h1 class="text-2xl font-bold text-gray-800 mb-2">@Model.Category.Name</h1>
+            <p class="text-gray-600 text-sm mb-4">Mã danh mục: @Model.Category.CategoryId</p>
+            <p class="text-gray-700 mb-6">Mô tả: @Model.Category.Description</p>
+            
+            <div class="mt-4">
+                <h2 class="text-xl font-semibold text-gray-800 mb-4">Thông tin chi tiết</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <p class="text-gray-600"><span class="font-semibold">Mã danh mục cha:</span> @Model.Category.ParentId</p>
+                    </div>
+                    <div>
+                        <p class="text-gray-600"><span class="font-semibold">Trạng thái:</span> @Model.Category.Status</p>
+                    </div>
+                    <div>
+                        <p class="text-gray-600"><span class="font-semibold">Người tạo:</span> @Model.Category.CreatedBy</p>
+                    </div>
+                    <div>
+                        <p class="text-gray-600"><span class="font-semibold">Ngày tạo:</span> @Model.Category.CreatedAt</p>
+                    </div>
+                    <div>
+                        <p class="text-gray-600"><span class="font-semibold">Người cập nhật:</span> @Model.Category.UpdatedBy</p>
+                    </div>
+                    <div>
+                        <p class="text-gray-600"><span class="font-semibold">Ngày cập nhật:</span> @Model.Category.UpdatedAt</p>
+                    </div>
+                    <div>
+                        <p class="text-gray-600"><span class="font-semibold">Người xóa:</span> @Model.Category.DeletedBy</p>
+                    </div>
+                    <div>
+                        <p class="text-gray-600"><span class="font-semibold">Ngày xóa:</span> @Model.Category.DeletedAt</p>
+                    </div>
+                    <p class="text-gray-600">
+                        <span class="font-semibold">Đã xóa:</span> @(Model.Category.IsDeleted.HasValue && Model.Category.IsDeleted.Value ? "Có" : "Không")
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

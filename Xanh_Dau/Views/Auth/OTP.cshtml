@@ -1,0 +1,143 @@
+@{
+    ViewData["Title"] = "OTP Page";
+    Layout = "~/Views/Shared/_LayoutEmpty.cshtml";
+}
+<link rel="stylesheet" href="~/css/site.css"/>
+<link rel="stylesheet" href="~/tailwind/build/tailwind.css">
+<link rel="stylesheet" href="~/fonts/boxicons.css"/>
+<script src="~/js/site.js"></script>
+
+<div class="bg-gradient-to-r from-green-200 to-blue-200 min-h-screen flex items-center justify-center px-4">
+    <div class="w-full max-w-md bg-white rounded-xl shadow-xl p-6 sm:p-8 overflow-hidden">
+
+        <!-- Tiêu đề -->
+        <div class="text-center mb-6">
+            <h2 class="text-2xl sm:text-3xl font-extrabold text-gray-800">Nhập mã OTP</h2>
+            <p class="text-gray-600 mt-2 text-sm sm:text-base">Hãy nhập mã OTP gồm 6 chữ số đã được gửi đến email của
+                bạn để xác minh.</p>
+        </div>
+
+        <!-- Form nhập OTP -->
+        <form id="otp-form">
+
+            <!-- Trường nhập mã OTP -->
+            <div class="grid grid-cols-6 gap-3 mb-6">
+                <input type="text" id="otp1" maxlength="1"
+                       class="otp-input w-full h-12 text-center text-lg border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
+                       oninput="moveFocus(1)"/>
+                <input type="text" id="otp2" maxlength="1"
+                       class="otp-input w-full h-12 text-center text-lg border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
+                       oninput="moveFocus(2)"/>
+                <input type="text" id="otp3" maxlength="1"
+                       class="otp-input w-full h-12 text-center text-lg border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
+                       oninput="moveFocus(3)"/>
+                <input type="text" id="otp4" maxlength="1"
+                       class="otp-input w-full h-12 text-center text-lg border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
+                       oninput="moveFocus(4)"/>
+                <input type="text" id="otp5" maxlength="1"
+                       class="otp-input w-full h-12 text-center text-lg border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
+                       oninput="moveFocus(5)"/>
+                <input type="text" id="otp6" maxlength="1"
+                       class="otp-input w-full h-12 text-center text-lg border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
+                       oninput="moveFocus(6)"/>
+            </div>
+
+            <!-- Thông báo lỗi nếu OTP không hợp lệ -->
+            <div id="otp-error" class="mb-4 text-red-600 hidden text-center font-semibold">
+                <p>Mã OTP không chính xác. Vui lòng thử lại.</p>
+            </div>
+
+            <!-- Bộ đếm thời gian -->
+            <div class="mb-6 text-center">
+                <p class="text-sm text-gray-600" id="timer">Thời gian còn lại: <span id="countdown" class="font-bold">03:00</span>
+                </p>
+            </div>
+
+            <!-- Nút gửi OTP -->
+            <div class="mb-6">
+                <button type="submit"
+                        class="w-full bg-green-600 text-white py-3 px-6 rounded-lg font-semibold text-lg hover:bg-green-700 focus:outline-none focus:ring-4 focus:ring-green-300 transition-all duration-300">
+                    Xác minh mã OTP
+                </button>
+            </div>
+
+            <!-- Quay lại yêu cầu OTP -->
+            <div class="text-center">
+                <p class="text-gray-600">Không nhận được mã OTP?
+                    <a href="#" class="text-green-600 font-semibold hover:underline" onclick="resendOTP()">Gửi lại mã
+                        OTP</a>
+                </p>
+            </div>
+
+            <div class="text-center mt-2">
+                <p class="text-gray-600">Quay lại
+                    <a asp-controller="Auth" asp-action="Login" class="text-green-600 font-semibold hover:underline">Đăng
+                        nhập</a>
+                </p>
+            </div>
+
+        </form>
+
+    </div>
+</div>
+
+<!-- Script để xử lý OTP và bộ đếm thời gian -->
+<script>
+    let countdownTime = 180; // Thời gian đếm ngược (3 phút = 180 giây)
+    const timerElement = document.getElementById('countdown');
+    const otpInputs = document.querySelectorAll('.otp-input');
+
+    // Chức năng di chuyển con trỏ khi người dùng nhập mã OTP
+    function moveFocus(index) {
+        if (otpInputs[index]) {
+            otpInputs[index].focus();
+        }
+    }
+
+    // Chức năng đếm ngược thời gian
+    function updateTimer() {
+        let minutes = Math.floor(countdownTime / 60);
+        let seconds = countdownTime % 60;
+        if (seconds < 10) {
+            seconds = '0' + seconds;
+        }
+        timerElement.textContent = `${minutes}:${seconds}`;
+        if (countdownTime === 0) {
+            clearInterval(timerInterval);
+            document.getElementById('otp-error').classList.remove('hidden');
+            document.getElementById('otp-error').textContent = "Mã OTP đã hết hạn. Vui lòng yêu cầu mã mới.";
+        } else {
+            countdownTime--;
+        }
+    }
+
+    // Thiết lập bộ đếm thời gian
+    let timerInterval = setInterval(updateTimer, 1000);
+
+    // Xử lý gửi form OTP
+    document.getElementById('otp-form').addEventListener('submit', function (e) {
+        e.preventDefault();
+        let otp = '';
+        otpInputs.forEach(input => {
+            otp += input.value;
+        });
+
+        if (otp.length === 6) {
+            // Kiểm tra OTP ở đây
+            console.log('OTP Submitted:', otp);
+            alert('Mã OTP hợp lệ!');
+        } else {
+            document.getElementById('otp-error').classList.remove('hidden');
+            document.getElementById('otp-error').textContent = 'Vui lòng nhập đủ mã OTP.';
+        }
+    });
+
+    // Xử lý gửi lại OTP
+    function resendOTP() {
+        alert('Mã OTP đã được gửi lại vào email của bạn.');
+        countdownTime = 180;
+        document.getElementById('otp-error').classList.add('hidden');
+        clearInterval(timerInterval);
+        timerInterval = setInterval(updateTimer, 1000);
+    }
+</script>

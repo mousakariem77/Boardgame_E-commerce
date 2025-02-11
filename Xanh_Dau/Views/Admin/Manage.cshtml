@@ -1,0 +1,304 @@
+@model Xanh_Dau.DTO.AdminDTO
+@{
+    ViewData["Title"] = "Admin Management Page";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+<link rel="stylesheet" href="~/css/site.css"/>
+<link rel="stylesheet" href="~/tailwind/build/tailwind.css">
+<link rel="stylesheet" href="~/fonts/boxicons.css"/>
+<script src="~/js/site.js"></script>
+
+<div class="p-6 bg-gray-100 min-h-screen">
+    <h3 class="text-xl font-semibold text-gray-800 mb-6">Quản lí tài khoản quản trị viên</h3>
+
+    <!-- Search & Filter Tools -->
+    <div class="bg-white p-6 rounded-lg shadow-lg mb-2">
+        <div class="flex justify-between">
+            <h3 class="text-xl font-semibold text-gray-800 mb-4">Công cụ tìm kiếm và lọc</h3>
+            <div class="flex justify-end mb-3">
+                <button class="px-6 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 focus:outline-none"
+                        onclick="openAdminModal()">
+                    Tạo tài khoản mới
+                </button>
+            </div>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+            <!-- Tìm kiếm sản phẩm -->
+            <input type="text" placeholder="Tìm kiếm theo tên"
+                   class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none">
+
+            <!-- Lọc theo trạng thái sản phẩm -->
+            <select class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none">
+                <option value="">Trạng thái</option>
+                <option value="active">Hoạt động</option>
+                <option value="suspended">Tạm khóa</option>
+            </select>
+
+            <!-- Lọc theo ngày nhập -->
+            <input type="date" placeholder="Ngày nhập"
+                   class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none">
+        </div>
+    </div>
+
+    <div class="bg-white p-6 rounded-lg shadow-lg" style="min-height: 310px;">
+        <div class="flex justify-between">
+            <h3 class="text-xl font-semibold text-gray-800 mb-4">Danh sách tài khoản</h3>
+            <div class="">
+                <label for="pageSize" class="text-gray-600 mr-2">Số dòng hiển thị:</label>
+                <select id="pageSize" name="pageSize" class="px-3 py-2 border rounded"
+                        onchange="window.location.href='?page=1&pageSize=' + this.value;">
+                    <option value="2" selected="@(Model.PageSize == 2)">2</option>
+                    <option value="5" selected="@(Model.PageSize == 5)">5</option>
+                    <option value="5" selected="@(Model.PageSize == 6)">6</option>
+                    <option value="10" selected="@(Model.PageSize == 10)">10</option>
+                </select>
+            </div>
+        </div>
+        <div class="overflow-x-auto relative" style="height: 350px;"> <!-- Đặt chiều cao cố định -->
+            <table class="w-full border-collapse border border-gray-200">
+                <thead>
+                <tr class="bg-gray-100 text-gray-600 text-sm">
+                    <th class="border border-gray-200 px-4 py-2 text-left">ID</th>
+                    <th class="border border-gray-200 px-4 py-2 text-left">Tên tài khoản</th>
+                    <th class="border border-gray-200 px-4 py-2 text-left">Email</th>
+                    <th class="border border-gray-200 px-4 py-2 text-left">Role</th>
+                    <th class="border border-gray-200 px-4 py-2 text-left">Ngày đăng ký</th>
+                    <th class="border border-gray-200 px-4 py-2 text-left">Trạng thái</th>
+                    <th class="border border-gray-200 px-4 py-2 text-center">Thao tác</th>
+                </tr>
+                </thead>
+                <tbody class="text-sm text-gray-700">
+                @foreach (var admin in Model.ListAdmin)
+                {
+                    <tr class="hover:bg-gray-50">
+                        <td class="border border-gray-200 px-4 py-2">@admin.AdminId</td>
+                        <td class="border border-gray-200 px-4 py-2">@admin.FirstName @admin.LastName</td>
+                        <td class="border border-gray-200 px-4 py-2">@admin.Email</td>
+                        <td class="border border-gray-200 px-4 py-2">@admin.Role</td>
+                        <td class="border border-gray-200 px-4 py-2">@admin.CreatedAt</td>
+                        <td class="border border-gray-200 px-4 py-2 text-green-500">@admin.Status</td>
+                        <td class="border border-gray-200 px-4 py-2 text-center">
+                            <div class="relative">
+                                <button class="px-2 py-1 text-black focus:outline-none" onclick="toggleDropdown(this)">
+                                    <i class='bx bx-dots-vertical-rounded'></i>
+                                </button>
+                                <div
+                                    class="absolute hidden mt-2 bg-white border border-gray-200 rounded shadow-lg w-40 z-50"
+                                    style="margin-left: -7rem; top: 1.3rem;">
+                                    <a asp-controller="Admin" asp-action="ManageDetail"
+                                       asp-route-adminId="@admin.AdminId"
+                                       class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Xem chi tiết</a>
+                                    <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Chỉnh
+                                        sửa</a>
+                                    <a asp-controller="Admin" asp-action="DeleteProduct"
+                                       asp-route-id="@admin.AdminId"
+                                       class="block px-4 py-2 text-sm text-red-700 hover:bg-red-100">Xóa tài khoản</a>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                }
+                </tbody>
+            </table>
+        </div>
+
+        <div class="flex items-center justify-end">
+            <!-- Nút Prev -->
+            <a href="?page=@(Model.CurrentPage - 1)&pageSize=@Model.PageSize"
+               class="px-4 py-2 mx-1 bg-gray-200 text-gray-600 rounded hover:bg-gray-300 focus:outline-none"
+               @(Model.CurrentPage == 1 ? "disabled" : "")>
+                Trước
+            </a>
+
+            <!-- Các số trang -->
+            @for (var i = 1; i <= Model.TotalPages; i++)
+            {
+                <a href="?page=@i&pageSize=@Model.PageSize"
+                   class="px-4 py-2 mx-1 @(Model.CurrentPage == i ? "bg-blue-500 text-white" : "bg-gray-200 text-gray-600") rounded hover:bg-blue-600 focus:outline-none">
+                    @i
+                </a>
+            }
+
+            <!-- Nút Next -->
+            <a href="?page=@(Model.CurrentPage + 1)&pageSize=@Model.PageSize"
+               class="px-4 py-2 mx-1 bg-gray-200 text-gray-600 rounded hover:bg-gray-300 focus:outline-none"
+               @(Model.CurrentPage == Model.TotalPages ? "disabled" : "")>
+                Tiếp
+            </a>
+        </div>
+    </div>
+
+</div>
+
+<!-- Modal "Tạo tài khoản Admin mới" -->
+<div id="adminModal" class="fixed inset-0 flex items-center justify-center bg-gray-500 bg-opacity-50 hidden">
+    <div class="bg-white rounded-lg shadow-lg w-[600px] p-6 relative">
+        <h4 class="text-lg font-semibold text-gray-800 mb-4">Tạo tài khoản Admin mới</h4>
+
+        <form id="adminForm" method="post" asp-controller="Admin" asp-action="CreateAdmin" enctype="multipart/form-data">
+            <!-- Họ & Tên -->
+            <div class="grid grid-cols-2 gap-4 mb-4">
+                <div>
+                    <label for="FirstName" class="block text-gray-700">Họ</label>
+                    <input asp-for="@Model.Admin.FirstName" type="text" id="FirstName"
+                           class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none"
+                           placeholder="Nhập họ">
+                </div>
+                <div>
+                    <label for="LastName" class="block text-gray-700">Tên</label>
+                    <input asp-for="@Model.Admin.LastName" type="text" id="LastName"
+                           class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none"
+                           placeholder="Nhập tên">
+                </div>
+            </div>
+
+            <!-- Tên đăng nhập -->
+            <div class="mb-4">
+                <label for="Username" class="block text-gray-700">Tên đăng nhập</label>
+                <input asp-for="@Model.Admin.Username" type="text" id="Username"
+                       class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none"
+                       placeholder="Nhập tên đăng nhập">
+            </div>
+
+            <!-- Mật khẩu -->
+            <div class="mb-4">
+                <label for="Password" class="block text-gray-700">Mật khẩu</label>
+                <input asp-for="@Model.Admin.Password" type="password" id="Password"
+                       class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none"
+                       placeholder="Nhập mật khẩu">
+            </div>
+
+            <!-- Email -->
+            <div class="mb-4">
+                <label for="Email" class="block text-gray-700">Email</label>
+                <input asp-for="@Model.Admin.Email" type="email" id="Email"
+                       class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none"
+                       placeholder="Nhập email">
+            </div>
+
+            <!-- Ảnh đại diện -->
+            <div class="mb-4">
+                <label for="Picture" class="block text-gray-700">Ảnh đại diện</label>
+                <input asp-for="@Model.Admin.Picture" type="file" id="Picture"
+                       class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none">
+            </div>
+
+            <!-- Vai trò & Trạng thái -->
+            <div class="grid grid-cols-2 gap-4 mb-4">
+                <div>
+                    <label for="Role" class="block text-gray-700">Vai trò</label>
+                    <select asp-for="@Model.Admin.Role" id="Role"
+                            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none">
+                        <option value="admin">Admin</option>
+                        <option value="superadmin">Super Admin</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="status" class="block text-gray-700">Trạng thái</label>
+                    <select asp-for="@Model.Admin.Status" id="status"
+                            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none">
+                        <option value="Hoạt động">Hoạt động</option>
+                        <option value="Không hoạt động">Không hoạt động</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Nút Tạo tài khoản -->
+            <div class="flex justify-end mt-4">
+                <button type="button" class="px-6 py-2 bg-gray-300 text-gray-700 rounded-lg hover:bg-gray-400 focus:outline-none mr-2" onclick="closeAdminModal()">Hủy</button>
+                <button type="submit" class="px-6 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 focus:outline-none">Tạo tài khoản</button>
+            </div>
+        </form>
+
+        <!-- Nút Đóng modal -->
+        <button onclick="closeAdminModal()" class="absolute top-2 right-2 text-gray-500 hover:text-gray-700 focus:outline-none">
+            <i class="bx bx-x text-xl"></i>
+        </button>
+    </div>
+</div>
+
+
+
+<script>
+   // Mở modal tạo tài khoản admin
+    function openAdminModal() {
+        document.getElementById('adminModal').classList.remove('hidden');
+    }
+
+    // Đóng modal tạo tài khoản admin
+    function closeAdminModal() {
+        document.getElementById('adminModal').classList.add('hidden');
+    }
+
+    // Xử lý submit form tạo tài khoản admin
+    function submitAdminAccount() {
+        const firstName = document.getElementById('admin-first-name').value;
+        const lastName = document.getElementById('admin-last-name').value;
+        const username = document.getElementById('admin-username').value;
+        const password = document.getElementById('admin-password').value;
+        const email = document.getElementById('admin-email').value;
+        const role = document.getElementById('admin-role').value;
+        const status = document.getElementById('admin-status').value;
+        const form = document.getElementById('admin-form');
+
+        // Gửi form đi
+        form.submit();
+
+        // Reset input fields sau khi submit
+        document.getElementById('admin-first-name').value = '';
+        document.getElementById('admin-last-name').value = '';
+        document.getElementById('admin-username').value = '';
+        document.getElementById('admin-password').value = '';
+        document.getElementById('admin-email').value = '';
+        document.getElementById('admin-role').value = 'admin';
+        document.getElementById('admin-status').value = 'Hoạt động';
+
+        // Log để kiểm tra
+        console.log('Tạo tài khoản admin:', {
+            firstName, lastName, username, password, email, role, status
+        });
+
+        // Đóng modal sau khi tạo xong
+        closeAdminModal();
+    }
+</script>
+
+<script>
+    let currentOpenDropdown = null;
+
+    function toggleDropdown(button) {
+        const dropdown = button.nextElementSibling;
+
+        // Đóng dropdown hiện tại nếu nó khác với dropdown mới
+        if (currentOpenDropdown && currentOpenDropdown !== dropdown) {
+            currentOpenDropdown.classList.add('hidden');
+        }
+
+        // Mở/Đóng dropdown mới
+        dropdown.classList.toggle('hidden');
+
+        // Cập nhật trạng thái dropdown hiện tại
+        currentOpenDropdown = dropdown.classList.contains('hidden') ? null : dropdown;
+    }
+
+    // Đóng dropdown khi bấm bên ngoài
+    document.addEventListener('click', (event) => {
+        if (
+            currentOpenDropdown &&
+            !event.target.closest('.relative') // Kiểm tra nếu bấm ra ngoài container dropdown
+        ) {
+            currentOpenDropdown.classList.add('hidden');
+            currentOpenDropdown = null;
+        }
+    });
+
+    function navigatePage(page) {
+        const pageSize = document.getElementById('pageSize').value;
+        window.location.href = `?page=${page}&pageSize=${pageSize}`;
+    }
+
+    function updatePageSize(pageSize) {
+        window.location.href = `?page=1&pageSize=${pageSize}`;
+    }
+
+</script>

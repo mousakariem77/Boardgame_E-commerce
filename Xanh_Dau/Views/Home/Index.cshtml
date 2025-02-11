@@ -1,0 +1,307 @@
+﻿@using System.IdentityModel.Tokens.Jwt
+@model Xanh_Dau.DTO.HomeDTO
+
+@{
+    ViewData["Title"] = "Home Page";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link rel="stylesheet" href="~/css/site.css"/>
+<link rel="stylesheet" href="~/tailwind/build/tailwind.css">
+<link rel="stylesheet" href="~/fonts/boxicons.css"/>
+<script src="~/js/site.js"></script>
+
+@{
+    var token = Context.Request.Cookies["auth_token"]; // Lấy token từ cookie hoặc header
+    string username = null;
+    if (!string.IsNullOrEmpty(token))
+    {
+        var handler = new JwtSecurityTokenHandler();
+        var jwtToken = handler.ReadJwtToken(token);
+
+        var imageUrlClaim = jwtToken.Claims.FirstOrDefault(c => c.Type == "UserName");
+        if (imageUrlClaim != null)
+        {
+            username = imageUrlClaim.Value;
+        }
+    }
+}
+
+<div class="bg-gray-100">
+    <!-- 1. Hero Section -->
+    <section class="relative bg-green-700 text-white">
+        <div class="container mx-auto flex flex-col lg:flex-row items-center gap-8 py-16 px-6">
+            <!-- Nội dung text -->
+            <div class="text-center lg:text-left max-w-3xl lg:mr-8 ml-4">
+                <h1 class="text-4xl font-bold leading-snug">
+                    Chơi để thay đổi! <br>
+                    <span class="text-green-300 text-6xl">Bảo vệ môi trường từ những hành động nhỏ.</span>
+                </h1>
+                <p class="mt-4 text-lg">Khám phá Xanh Đấu, trò chơi mang sứ mệnh lan tỏa ý thức bảo vệ môi trường!</p>
+                <div class="mt-6 flex flex-col lg:flex-row gap-4 justify-center mx-auto">
+                    <a asp-controller="Home" asp-action="Shop"
+                       class="bg-green-500 hover:bg-green-600 text-white px-6 py-3 rounded-full text-lg font-bold">
+                        Mua ngay
+                    </a>
+                    <a asp-controller="Home" asp-action="About"
+                       class="bg-white text-green-700 hover:text-green-900 hover:bg-gray-200 px-6 py-3 rounded-full text-lg font-bold">
+                        Tìm hiểu
+                    </a>
+                </div>
+            </div>
+
+            <!-- Hình ảnh -->
+            <div class="lg:ml-auto mr-10">
+                <img src="/img/mascot.png" alt="Xanh Đấu" class="rounded-lg shadow-none">
+            </div>
+        </div>
+    </section>
+
+    <!-- 2. Giới thiệu -->
+    <section class="container mx-auto py-16 px-6 text-center pb-20">
+        <h2 class="text-3xl font-bold text-gray-800">Giới thiệu về Xanh Đấu</h2>
+        <p class="mt-4 text-gray-600 max-w-3xl mx-auto">
+            Xanh Đấu là boardgame sáng tạo, giúp người chơi hiểu hơn về vai trò của mình trong việc bảo vệ môi trường.
+            Cùng nhau hành động vì một hành tinh xanh hơn!
+        </p>
+        <div class="mt-6 flex flex-wrap justify-center gap-8">
+            <!-- Thẻ thông tin 1: Tính năng game -->
+            <div class="flex flex-col items-center bg-white p-6 rounded-lg shadow-md max-w-xs w-full sm:w-auto">
+                <h3 class="text-xl font-semibold text-gray-800">Tính năng Game</h3>
+                <p class="mt-4 text-gray-600 text-sm">Xanh Đấu là trò chơi sáng tạo giúp người chơi học hỏi và thực hành
+                    các kỹ năng bảo vệ môi trường qua các hoạt động thú vị.</p>
+            </div>
+            <!-- Thẻ thông tin 2: Mục tiêu bảo vệ môi trường -->
+            <div class="flex flex-col items-center bg-white p-6 rounded-lg shadow-md max-w-xs w-full sm:w-auto">
+                <h3 class="text-xl font-semibold text-gray-800">Mục Tiêu Bảo Vệ Môi Trường</h3>
+                <p class="mt-4 text-gray-600 text-sm">Trò chơi khuyến khích người chơi tham gia các hành động bảo vệ môi
+                    trường, từ đó nâng cao nhận thức về bảo vệ hành tinh xanh của chúng ta.</p>
+            </div>
+            <!-- Thẻ thông tin 3: Cộng đồng và Tương Tác -->
+            <div class="flex flex-col items-center bg-white p-6 rounded-lg shadow-md max-w-xs w-full sm:w-auto">
+                <h3 class="text-xl font-semibold text-gray-800">Cộng Đồng và Tương Tác</h3>
+                <p class="mt-4 text-gray-600 text-sm">Xanh Đấu tạo cơ hội cho cộng đồng cùng nhau chia sẻ và học hỏi về
+                    cách bảo vệ môi trường qua các trò chơi nhóm và hoạt động tương tác.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 3. Sản phẩm nổi bật -->
+    <section class="bg-white py-16">
+        <div class="container mx-auto text-center">
+            <h2 class="text-3xl font-bold text-gray-800">Sản phẩm nổi bật</h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 mt-8">
+
+                @foreach (var item in Model.ListProduct.Take(4))
+                {
+                    <div class="bg-gray-100 p-6 rounded-lg shadow-lg">
+                        <!-- Hình ảnh sản phẩm với chiều cao nhỏ hơn -->
+                        @if (item.ProductImages != null && item.ProductImages.Any())
+                        {
+                            <img src="@item.ProductImages.First().ImageUrl"
+                                 class="w-full h-48 object-cover rounded-lg"
+                                 alt="@item.Name"/>
+                        }
+
+                        <!-- Tên sản phẩm -->
+                        <h3 class="text-xl font-bold mt-4">@item.Name</h3>
+
+                        <!-- Mô tả ngắn -->
+                        <p class="text-gray-600 mt-2 text-sm">@item.Description</p>
+
+                        <!-- Giá hiện tại -->
+                        <p class="text-green-700 text-xl font-bold mt-2">@item.Price đ</p>
+
+                        <!-- Lượt đánh giá -->
+                        <div class="flex justify-end items-center mt-3">
+                            <div class="flex items-center">
+                                @{
+                                    var fullStars = Math.Floor(item.AverageRating);
+                                    var hasHalfStar = item.AverageRating % 1 >= 0.5;
+                                    var emptyStars = 5 - fullStars - (hasHalfStar ? 1 : 0);
+                                }
+
+                                @for (var i = 0; i < fullStars; i++)
+                                {
+                                    <span class="text-yellow-500">★</span>
+                                }
+
+                                @if (hasHalfStar)
+                                {
+                                    <span class="text-yellow-500">★</span>
+                                }
+
+                                @for (var i = 0; i < emptyStars; i++)
+                                {
+                                    <span class="text-gray-300">★</span>
+                                }
+
+                                <span class="text-gray-500 ml-2 text-sm">(@item.ReviewCount đánh giá)</span>
+                            </div>
+                        </div>
+
+                        <!-- Nút Mua ngay -->
+                        @if (username != null)
+                        {
+                            <a asp-controller="Home" asp-action="ShopDetail" asp-route-productId="@item.ProductId"
+                            class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-full block mt-2">
+                                Xem chi tiết <i class='bx bx-right-arrow-alt -mt-1 ml-2'></i>
+                            </a>
+                        }else{
+                            <a onclick="showModal()" class="bg-green-500 cursor-pointer hover:bg-green-600 text-white px-4 py-2 rounded-full block mt-2">
+                                Xem chi tiết <i class='bx bx-right-arrow-alt -mt-1 ml-2'></i>
+                            </a>
+                        }
+                    </div>
+                }
+            </div>
+        </div>
+    </section>
+
+
+    <!-- 4. Video hoặc Hướng dẫn chơi -->
+    <section class="bg-gray-100 py-16">
+        <div class="container mx-auto text-center">
+            <h2 class="text-3xl font-bold text-gray-800">Hướng dẫn chơi cơ bản</h2>
+            <div class="mt-8">
+                <video class="w-full max-w-xl mx-auto h-80 rounded-lg shadow-lg" controls>
+                    <source src="/video/video.mp4" type="video/mp4">
+                    Trình duyệt của bạn không hỗ trợ video.
+                </video>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- 5. Kêu gọi tham gia cộng đồng -->
+    <section class="bg-green-700 text-white py-16">
+        <div class="container mx-auto text-center">
+            <h2 class="text-3xl font-bold">Tham gia cộng đồng Xanh Đấu</h2>
+            <p class="mt-4">Hãy cùng chúng tôi chia sẻ những khoảnh khắc thú vị và lan tỏa thông điệp bảo vệ môi
+                trường!</p>
+            <a href="https://www.facebook.com/profile.php?id=61571661936090"
+               class="bg-white text-green-700 px-12 py-3 rounded-full mt-6 inline-block hover:bg-gray-200 font-bold">
+                Tham gia
+            </a>
+        </div>
+    </section>
+
+    <!-- 6. Phản hồi từ khách hàng -->
+    <section class="bg-gray-100 py-20">
+        <div class="container mx-auto text-center">
+            <h2 class="text-2xl font-bold text-gray-800 mb-6">Phản hồi của người dùng</h2>
+            <!-- Carousel Wrapper -->
+            <div class="relative overflow-hidden">
+                <!-- Carousel Items -->
+                <div id="testimonialCarousel" class="flex transition-transform duration-500 ease-in-out">
+                    <!-- Phản hồi 1 -->
+                    <div class="flex-shrink-0 w-full bg-white rounded-lg shadow-lg p-6">
+                        <img src="/img/avatar.jpg" alt="Avatar" class="rounded-full w-20 h-20 mx-auto mb-4">
+                        <h5 class="text-lg font-semibold">Nguyễn Văn An</h5>
+                        @* <p class="text-sm text-gray-500">Học Sinh Trung Học</p> *@
+                        <blockquote class="mt-4 text-gray-700">
+                            "Xanh Đấu không chỉ giúp tôi vui vẻ trong những giờ chơi, mà còn dạy tôi nhiều điều về bảo
+                            vệ môi trường. Một trải nghiệm tuyệt vời!"
+                        </blockquote>
+                    </div>
+
+                    <!-- Phản hồi 2 -->
+                    <div class="flex-shrink-0 w-full bg-white rounded-lg shadow-lg p-6">
+                        <img src="/img/avatar.jpg" alt="Avatar" class="rounded-full w-20 h-20 mx-auto mb-4">
+                        <h5 class="text-lg font-semibold">Trần Thị Thu Hoa</h5>
+                        @* <p class="text-sm text-gray-500">Giáo Viên</p> *@
+                        <blockquote class="mt-4 text-gray-700">
+                            "Trò chơi rất hấp dẫn! Tôi đã sử dụng Xanh Đấu trong lớp học và học sinh rất thích thú. Nó
+                            thực sự giúp các em nhận thức rõ hơn về vấn đề môi trường."
+                        </blockquote>
+                    </div>
+
+                    <!-- Phản hồi 3 -->
+                    <div class="flex-shrink-0 w-full bg-white rounded-lg shadow-lg p-6">
+                        <img src="/img/avatar.jpg" alt="Avatar" class="rounded-full w-20 h-20 mx-auto mb-4">
+                        <h5 class="text-lg font-semibold">Lê Văn Đồng</h5>
+                        @* <p class="text-sm text-gray-500">Sinh Viên Đại Học</p> *@
+                        <blockquote class="mt-4 text-gray-700">
+                            "Xanh Đấu là một trò chơi không thể thiếu trong các buổi họp mặt bạn bè. Chúng tôi đã có
+                            những giây phút vui vẻ và học hỏi rất nhiều từ nó!"
+                        </blockquote>
+                    </div>
+                </div>
+
+                <!-- Nút điều hướng -->
+                <div class="absolute inset-0 flex justify-between items-center px-4">
+                    <button id="prevBtn"
+                            class="bg-gray-700 text-white rounded-full p-2 hover:bg-gray-600 focus:outline-none">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
+                             stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+                        </svg>
+                    </button>
+                    <button id="nextBtn"
+                            class="bg-gray-700 text-white rounded-full p-2 hover:bg-gray-600 focus:outline-none">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
+                             stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+<!-- Modal loginModal First -->
+<div id="loginModal" class="fixed inset-0 flex items-center justify-center p-4 z-50 hidden">
+    <div class="bg-white p-8 rounded-2xl shadow-2xl w-full max-w-md text-center relative">
+        <button onclick="closeModal()" class="absolute top-3 right-3 text-gray-600 hover:text-gray-900 text-xl">&times;</button>
+        <div class="flex justify-center mb-4">
+            <div class="w-16 h-16 flex items-center justify-center bg-red-500 text-white text-3xl font-bold rounded-full">X</div>
+        </div>
+        <h2 class="text-2xl font-bold text-green-700">Bạn cần đăng nhập!</h2>
+        <p class="text-gray-700 mt-2">Vui lòng đăng nhập để tiếp tục mua hàng và bảo vệ môi trường cùng Xanh Đấu.</p>
+        <div class="mt-6 flex justify-center gap-4">
+            <a asp-controller="Auth" asp-action="Login" class="bg-green-500 hover:bg-green-600 text-white px-5 py-2 rounded-lg shadow-md transition-all transform hover:scale-105">Đăng nhập</a>
+            <button onclick="closeModal()" class="bg-gray-300 hover:bg-gray-400 px-5 py-2 rounded-lg shadow-md transition-all transform hover:scale-105">Đóng</button>
+        </div>
+    </div>
+</div>
+
+<!-- Script tự động lướt qua -->
+<script>
+    // JavaScript to handle carousel functionality
+    const carousel = document.getElementById('testimonialCarousel');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    let currentIndex = 0;
+
+    // Function to update carousel position
+    const updateCarousel = () => {
+        carousel.style.transform = `translateX(-${currentIndex * 100}%)`;
+    };
+
+    // Handle Next Button
+    nextBtn.addEventListener('click', () => {
+        currentIndex = (currentIndex + 1) % carousel.children.length;
+        updateCarousel();
+    });
+
+    // Handle Prev Button
+    prevBtn.addEventListener('click', () => {
+        currentIndex = (currentIndex - 1 + carousel.children.length) % carousel.children.length;
+        updateCarousel();
+    });
+
+    // Auto-scroll functionality
+    setInterval(() => {
+        currentIndex = (currentIndex + 1) % carousel.children.length;
+        updateCarousel();
+    }, 5000); // Change slide every 5 seconds
+</script>
+
+<script>
+    function showModal() {
+        document.getElementById('loginModal').classList.remove('hidden');
+    }
+    function closeModal() {
+        document.getElementById('loginModal').classList.add('hidden');
+    }
+</script>

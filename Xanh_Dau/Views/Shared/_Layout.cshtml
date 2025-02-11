@@ -1,0 +1,320 @@
+﻿@using System.IdentityModel.Tokens.Jwt
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+<!DOCTYPE html>
+<html lang="en">
+@{
+    var token = Context.Request.Cookies["auth_token"]; // Lấy token từ cookie hoặc header
+    string username = null;
+    string userPicture = null;
+    if (!string.IsNullOrEmpty(token))
+    {
+        var handler = new JwtSecurityTokenHandler();
+        var jwtToken = handler.ReadJwtToken(token);
+
+        var imageUrlClaim = jwtToken.Claims.FirstOrDefault(c => c.Type == "UserName");
+        var pictureClaim = jwtToken.Claims.FirstOrDefault(c => c.Type == "Picture");
+        if (imageUrlClaim != null)
+        {
+            username = imageUrlClaim.Value;
+        }
+
+        if (pictureClaim != null && !string.IsNullOrEmpty(pictureClaim.Value))
+        {
+            userPicture = pictureClaim.Value;
+        }
+    }
+}
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>@ViewData["Title"] - Xanh_Dau</title>
+    <link rel="icon" type="image/x-icon" href="~/logo.ico"/>
+    <link rel="stylesheet" href="~/tailwind/build/tailwind.css">
+    <link rel="stylesheet" href="~/fonts/boxicons.css"/>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true"/>
+    <link rel="stylesheet" href="~/Xanh_Dau.styles.css" asp-append-version="true"/>
+</head>
+<body>
+<header class="bg-green-700 text-white shadow-md">
+    <nav class="container mx-auto flex items-center justify-between p-4">
+        <!-- Logo -->
+        <a asp-controller="Home" asp-action="Index"
+           class="flex items-center space-x-2 text-2xl font-bold text-white font-serif">
+            <img src="/img/logo.png" alt="Logo" class="h-12 w-12 ml-10">
+            <span>XanhDau</span>
+        </a>
+
+        <div class="flex justify-between items-center p-4">
+            <!-- Icon Cart -->
+            <a asp-controller="Home" asp-action="CartDetail" class="lg:hidden text-white hover:text-green-300 mr-8">
+                <i class="bx bx-cart-alt hover:text-green-300"></i>
+            </a>
+            
+            <!-- Menu toggle button (Mobile) -->
+            <button class="lg:hidden text-white focus:outline-none" id="menu-toggle">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"/>
+                </svg>
+            </button>
+
+            @if (username != null)
+            {
+                <!-- Avatar Button -->
+                <button class="lg:hidden flex items-center focus:outline-none ml-8 user-dropdown-button" id="userDropdownButton" aria-expanded="false">
+                    <img src="@userPicture" alt="User Avatar" class="w-9 h-9 rounded-full object-cover">
+                </button>
+
+                <!-- Dropdown Menu -->
+                <ul id="userDropdownMenu"
+                    class="absolute right-0 mt-56 mr-8 bg-white border border-gray-200 rounded-md shadow-lg w-56 hidden z-10 user-dropdown-menu">
+                    <!-- User Info -->
+                    <li class="flex items-center px-4 py-2">
+                        @if (!string.IsNullOrEmpty(userPicture))
+                        {
+                            <img src="@userPicture" alt="User Avatar"
+                                    class="w-8 h-8 rounded-full object-cover mr-2">
+                        }
+                        else
+                        {
+                            <img src="/default-avatar.png" alt="Default Avatar"
+                                    class="w-8 h-8 rounded-full object-cover mr-2">
+                        }
+                        <span class="text-black">@username</span>
+                    </li>
+                    <li>
+                        <hr class="border-gray-300">
+                    </li>
+                    <!-- Menu Items -->
+                    <li><a asp-controller="Auth" asp-action="Profile"
+                            class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Hồ sơ cá nhân</a></li>
+                    <li><a asp-controller="Order" asp-action="MyOrders"
+                            class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Đơn mua của bạn</a></li>
+                    <li class=" text-red-700"><a asp-controller="Auth" asp-action="Logout"
+                                                    class="block px-4 py-2 hover:bg-gray-100">Đăng xuất</a></li>
+                </ul>
+            }
+        </div>
+
+
+        <!-- Navigation Links -->
+        <div class="hidden lg:flex space-x-6 items-center" id="menu">
+            <a asp-controller="Home" asp-action="Index" class="hover:text-green-300 text-sm">Trang chủ</a>
+            <a asp-controller="Home" asp-action="About" class="hover:text-green-300 text-sm">Giới thiệu</a>
+            <a asp-controller="Home" asp-action="Shop" class="hover:text-green-300 text-sm">Cửa hàng</a>
+            <a asp-controller="Home" asp-action="Blog" class="hover:text-green-300 text-sm">Blog</a>
+            <a asp-controller="Home" asp-action="Event" class="hover:text-green-300 text-sm">Sự kiện <span
+                    class="text-xs bg-yellow-500 text-black rounded px-1 ml-1">Sắp ra mắt</span></a>
+            <a asp-controller="Home" asp-action="Contact" class="hover:text-green-300 text-sm">Liên hệ</a>
+            <a asp-controller="Home" asp-action="FAQs" class="hover:text-green-300 text-sm">Câu hỏi thường gặp</a>
+        </div>
+
+
+        <!-- Right section: Notifications, Cart, Language, Login -->
+        <div class="hidden lg:flex space-x-4 items-center">
+            <a asp-controller="Home" asp-action="CartDetail" class="text-white mr-2 hover:text-green-300">
+                <i class="bx bx-cart-alt hover:text-green-300"></i>
+            </a>
+
+            <div class="relative">
+                @if (username == null)
+                {
+                    <a asp-controller="Auth" asp-action="Login" class="text-lg font-semibold text-white-800 hover:text-green-300
+                        hover:underline transition-all duration-300 transform hover:scale-105">
+                        Đăng nhập
+                    </a>
+                    <a asp-controller="Auth" asp-action="Register" class="text-lg font-semibold text-white-800 hover:text-green-300
+                        hover:underline transition-all duration-300 transform hover:scale-105 ml-4">
+                        Đăng ký
+                    </a>
+                }
+                else
+                {
+                    <!-- Avatar Button -->
+                    <button class="flex items-center focus:outline-none user-dropdown-button" id="userDropdownButton" aria-expanded="false">
+                        <img src="@userPicture" alt="User Avatar" class="w-9 h-9 rounded-full object-cover">
+                    </button>
+
+                    <!-- Dropdown Menu -->
+                    <ul id="userDropdownMenu"
+                        class="absolute right-0 mt-2 bg-white border border-gray-200 rounded-md shadow-lg w-56 hidden z-10 user-dropdown-menu">
+                        <!-- User Info -->
+                        <li class="flex items-center px-4 py-2">
+                            @if (!string.IsNullOrEmpty(userPicture))
+                            {
+                                <img src="@userPicture" alt="User Avatar"
+                                     class="w-8 h-8 rounded-full object-cover mr-2">
+                            }
+                            else
+                            {
+                                <img src="/default-avatar.png" alt="Default Avatar"
+                                     class="w-8 h-8 rounded-full object-cover mr-2">
+                            }
+                            <span class="text-black">@username</span>
+                        </li>
+                        <li>
+                            <hr class="border-gray-300">
+                        </li>
+                        <!-- Menu Items -->
+                        <li><a asp-controller="Auth" asp-action="Profile"
+                               class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Hồ sơ cá nhân</a></li>
+                        <li><a asp-controller="Order" asp-action="MyOrders"
+                               class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Đơn mua của bạn</a></li>
+                        <li class=" text-red-700"><a asp-controller="Auth" asp-action="Logout"
+                                                     class="block px-4 py-2 hover:bg-gray-100">Đăng xuất</a></li>
+                    </ul>
+                }
+            </div>
+
+        </div>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div class="lg:hidden hidden bg-green-800 text-white space-y-4 px-4 py-6" id="mobile-menu">
+        <a asp-controller="Home" asp-action="Index" class="block text-white mb-4 text-sm hover:text-green-300">Trang chủ</a>
+        <a asp-controller="Home" asp-action="About" class="block text-white mb-4 text-sm hover:text-green-300">Giới thiệu</a>
+        <a asp-controller="Home" asp-action="Shop" class="block text-white mb-4 text-sm hover:text-green-300">Cửa hàng</a>
+        <a asp-controller="Home" asp-action="Blog" class="block text-white mb-4 text-sm hover:text-green-300">Blog</a>
+        <a asp-controller="Home" asp-action="Event" class="block text-white mb-4 text-sm hover:text-green-300">Sự kiện <span
+                class="text-xs bg-yellow-500 text-black rounded px-1 ml-1">Sắp ra mắt</span></a>
+        <a asp-controller="Home" asp-action="Contact" class="block text-white mb-4 text-sm hover:text-green-300">Liên hệ</a>
+        <a asp-controller="Home" asp-action="FAQs" class="block text-white mb-4 text-sm hover:text-green-300">Câu hỏi thường gặp</a>
+        @if (username == null){
+            <div class="flex justify-center space-x-4">
+                <a asp-controller="Auth" asp-action="Login" class="block text-white bg-blue-500 hover:bg-blue-600 text-center py-2 px-4 rounded-md">Đăng nhập</a>
+                <a asp-controller="Auth" asp-action="Register" class="block text-white bg-green-500 hover:bg-green-600 text-center py-2 px-4 rounded-md">Đăng ký</a>
+            </div>
+        }
+    </div>
+</header>
+<div class="container p-0">
+    <main role="main">
+        @RenderBody()
+    </main>
+</div>
+
+<footer class="bg-green-800 text-white py-12">
+    <div class="container mx-auto px-6 px-5">
+        <!-- Logo và Tên Công Ty -->
+        <div class="flex flex-col md:flex-row justify-between items-center mb-8">
+            <div class="flex items-center mb-4 md:mb-0">
+                <img src="/img/logo.png" alt="Logo Xanh Đấu" class="h-16 mr-4">
+                <span class="text-3xl font-bold text-white">Xanh Đấu</span>
+            </div>
+            <div class="text-center md:text-right">
+                <p class="text-lg italic">Nâng cao nhận thức bảo vệ môi trường cùng Xanh Đấu!</p>
+            </div>
+        </div>
+
+        <!-- Điều Hướng Chính -->
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+            <div>
+                <h3 class="text-xl font-semibold mb-4 text-green-400">Liên kết Chính</h3>
+                <ul class="space-y-2">
+                    <li><a asp-controller="Home" asp-action="Index" class="text-white hover:text-green-400">Trang
+                            chủ</a></li>
+                    <li><a asp-controller="Home" asp-action="About" class="text-white hover:text-green-400">Giới
+                            thiệu</a></li>
+                    <li><a asp-controller="Home" asp-action="Shop" class="text-white hover:text-green-400">Cửa hàng</a>
+                    </li>
+                    <li><a asp-controller="Home" asp-action="Blog" class="text-white hover:text-green-400">Blog</a></li>
+                    <li><a asp-controller="Home" asp-action="Event" class="text-white hover:text-green-400">Sự kiện</a>
+                    </li>
+                    <li><a asp-controller="Home" asp-action="Contact" class="text-white hover:text-green-400">Liên
+                            hệ</a></li>
+                    <li><a asp-controller="Home" asp-action="FAQs" class="text-white hover:text-green-400">Câu hỏi
+                            thường dùng</a></li>
+                </ul>
+            </div>
+            <div>
+                <h3 class="text-xl font-semibold mb-4 text-green-400">Địa Chỉ và Liên Hệ</h3>
+                <ul class="space-y-2">
+                    <li>Địa chỉ: 123 đường Nguyễn Văn Cừ, Cần Thơ, Việt Nam</li>
+                    <li>Điện thoại: +84 123 456 789</li>
+                    <li>Email: <a href="mailto:support@xanhdau.com" class="hover:text-green-400">support@xanhdau.com</a>
+                    </li>
+                    <li>Giờ làm việc: T2 - T6, 8:00 AM - 6:00 PM</li>
+                </ul>
+            </div>
+            <!-- Đăng Ký Nhận Bản Tin -->
+            <div class="col-span-2">
+                <h3 class="text-xl font-semibold mb-4 text-green-400">Đăng Ký Nhận Bản Tin</h3>
+                <p class="text-lg mb-4">Đăng ký nhận bản tin để không bỏ lỡ các ưu đãi đặc biệt và thông tin hữu ích từ
+                    Xanh Đấu.</p>
+                <div class="flex">
+                    <input type="email" placeholder="Nhập email của bạn"
+                           class="px-4 w-full rounded-l-lg focus:outline-none bg-white text-black"/>
+                    <button
+                        class="px-6 w-32 py-2 font-bold bg-green-600 text-white rounded-r-lg hover:bg-green-500 transition duration-300 ease-in-out">
+                        Đăng Ký
+                    </button>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- Bản Quyền và Thông Tin Pháp Lý -->
+        <div class="text-center text-sm text-gray-300">
+            <p>© 2024 Xanh Đấu. All Rights Reserved.</p>
+            <p>Các thông tin pháp lý và quyền sở hữu trí tuệ được bảo vệ theo quy định của pháp luật.</p>
+        </div>
+    </div>
+</footer>
+
+
+
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="~/js/site.js" asp-append-version="true"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        // Toggle mobile menu
+        const menuToggle = document.getElementById("menu-toggle");
+        const mobileMenu = document.getElementById("mobile-menu");
+
+        if (menuToggle) {
+            menuToggle.addEventListener("click", () => {
+                mobileMenu.classList.toggle("hidden");
+            });
+        }
+
+        // User dropdown logic (for both mobile & desktop)
+        const userDropdownButtons = document.querySelectorAll(".user-dropdown-button");
+        const userDropdownMenus = document.querySelectorAll(".user-dropdown-menu");
+
+        userDropdownButtons.forEach((button) => {
+            button.addEventListener("click", function (event) {
+                event.stopPropagation(); // Ngăn chặn sự kiện lan ra ngoài
+
+                // Đóng tất cả các dropdown trước khi mở dropdown mới
+                userDropdownMenus.forEach((menu) => {
+                    if (menu !== this.nextElementSibling) {
+                        menu.classList.add("hidden");
+                    }
+                });
+
+                // Toggle dropdown menu
+                const dropdownMenu = this.nextElementSibling;
+                dropdownMenu.classList.toggle("hidden");
+            });
+        });
+
+        // Đóng dropdown khi click ra ngoài
+        document.addEventListener("click", function () {
+            userDropdownMenus.forEach((menu) => {
+                menu.classList.add("hidden");
+            });
+        });
+
+        // Ngăn dropdown đóng khi click bên trong menu
+        userDropdownMenus.forEach((menu) => {
+            menu.addEventListener("click", function (event) {
+                event.stopPropagation();
+            });
+        });
+    });
+
+</script>
+@await RenderSectionAsync("Scripts", false)
+</body>
+</html>

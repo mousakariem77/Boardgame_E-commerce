@@ -1,0 +1,473 @@
+@using System.IdentityModel.Tokens.Jwt
+@model Xanh_Dau.DTO.ShopDetailDTO
+@{
+    ViewData["Title"] = "Shop Detail Page";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link rel="stylesheet" href="~/css/site.css"/>
+<link rel="stylesheet" href="~/tailwind/build/tailwind.css">
+<link rel="stylesheet" href="~/fonts/boxicons.css"/>
+<script src="~/js/site.js"></script>
+
+@{
+    var token = Context.Request.Cookies["auth_token"]; // Lấy token từ cookie hoặc header
+    string username = null;
+    if (!string.IsNullOrEmpty(token))
+    {
+        var handler = new JwtSecurityTokenHandler();
+        var jwtToken = handler.ReadJwtToken(token);
+
+        var imageUrlClaim = jwtToken.Claims.FirstOrDefault(c => c.Type == "UserName");
+        if (imageUrlClaim != null)
+        {
+            username = imageUrlClaim.Value;
+        }
+    }
+}
+
+<div class="bg-gray-100">
+    @if (TempData["Success"] != null)
+    {
+        <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative" role="alert">
+            <span class="block sm:inline">@TempData["Success"]</span>
+        </div>
+    }
+    @if (TempData["Error"] != null)
+    {
+        <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
+            <span class="block sm:inline">@TempData["Error"]</span>
+        </div>
+    }
+    <section class="shop_product-detail bg-white py-16">
+        <div class="product-detail-container container mx-auto flex flex-col lg:flex-row gap-12">
+            <!-- Hình ảnh sản phẩm -->
+            <div class="lg:w-1/2 flex justify-center">
+                <div class="relative w-full max-w-md">
+                    <!-- Main Product Image -->
+                    @foreach (var productImg in Model.ListProductImages)
+                    {
+                        if (productImg.ProductId == Model.Product.ProductId && productImg.IsPrimary == true)
+                        {
+                            <div class="main-img-container rounded-lg shadow-lg w-full aspect-square overflow-hidden">
+                                <img id="mainImage" src="@productImg.ImageUrl" alt="Main Product Image"
+                                     class="w-full h-full object-cover">
+                            </div>
+                        }
+                    }
+
+                    <!-- Thumbnails -->
+                    <div class="flex justify-center space-x-2 mt-4">
+                        @foreach (var productImg in Model.ListProductImages)
+                        {
+                            if (productImg.ProductId == Model.Product.ProductId)
+                            {
+                                <div class="h-16 w-16 overflow-hidden rounded-lg border hover:shadow-md cursor-pointer 
+                              @(productImg.IsPrimary == true ? "ring-2 ring-green-500" : "")">
+                                    <img src="@productImg.ImageUrl"
+                                         data-src="@productImg.ImageUrl"
+                                         alt="Thumbnail @productImg.ImageId"
+                                         class="object-cover w-full h-full thumbnail">
+                                </div>
+                            }
+                        }
+                    </div>
+                </div>
+            </div>
+
+            <!-- Thông tin sản phẩm -->
+            <div class="lg:w-1/2">
+                <h2 class="text-3xl font-bold text-gray-800">@Model.Product.Name</h2>
+                <div class="d-flex mt-2 mb-2">
+                    @if(@Model.Product.Status.Equals("Out_of_stock"))
+                    {
+                        <p class="text-sm font-semibold text-gray-900 mr-16">Tình trạng: 
+                            <span class="text-green-600">Còn hàng</span></p>
+                        <p class="text-sm font-semibold text-gray-900">Thương hiệu: <span
+                                class="text-green-600">Xanh Đấu</span></p>
+
+                        }
+                </div>
+                <hr>
+                <p class="mt-4 text-lg font-semibold text-gray-900">Giá: @Model.Product.Price VNĐ</p>
+
+                <form method="post" action="/Cart/AddToCart">
+                    @Html.AntiForgeryToken()
+                    <input type="hidden" name="productId" value="@Model.Product.ProductId">
+
+                    <!-- Quantity Control -->
+                    <div class="mt-6">
+                        <div class="flex items-center mt-4">
+                            <input type="number"
+                                   name="quantity"
+                                   value="1"
+                                   class="w-16 text-center mx-2 p-2 border border-gray-300 rounded-md"
+                                   min="1"
+                                   max="@Model.Product.StockQuantity"
+                                   id="quantityInput">
+                            <span class="text-sm text-gray-500 ml-2">
+            Còn lại: <span class="font-semibold">@Model.Product.StockQuantity</span> sản phẩm
+        </span>
+                        </div>
+                    </div>
+
+                    <!-- Add to Cart and Buy Now Buttons -->
+                    @if (Model.Product.StockQuantity <= 0)
+                    {
+                        <div class="mt-6 flex gap-4">
+                            <button disabled
+                                    class="bg-gray-400 text-white px-6 py-3 rounded-md w-full font-bold cursor-not-allowed">
+                                Hết hàng
+                            </button>
+                            <a class="bg-gray-400 text-white px-6 py-3 rounded-md w-full font-bold text-center cursor-not-allowed">
+                                Hết hàng
+                            </a>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="mt-6 flex gap-4">
+                            <button type="submit" formaction="/Cart/AddToCart"
+                                    class="bg-green-700 text-white px-6 py-3 rounded-md hover:bg-green-600 w-full font-bold">
+                                Thêm vào giỏ hàng
+                            </button>
+                            <button type="submit" formaction="/Cart/AddToCartAndCheckout"
+                                    class="bg-red-600 text-white px-6 py-3 rounded-md hover:bg-red-500 w-full font-bold">
+                                Mua ngay
+                            </button>
+                        </div>
+                    }
+                </form>
+                <!-- Additional Information -->
+                <div class="mt-8 grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                        <h3 class="text-lg font-semibold text-gray-800">Trải nghiệm thú vị</h3>
+                        <ul class="mt-2 text-sm text-gray-600">
+                            <li>Khám phá những vai trò độc đáo.</li>
+                            <li>Thách thức bạn bè với những quyết định chiến lược.</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-semibold text-gray-800">Ưu đãi đặc biệt</h3>
+                        <ul class="mt-2 text-sm text-gray-600">
+                            <li>Giảm 10% cho các đơn hàng từ 2 bộ trở lên.</li>
+                            <li>Giao hàng nhanh tại TP.Cần Thơ.</li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+    <!-- 4. Chương trình khuyến mãi -->
+    <section class="bg-green-700 text-white py-12">
+        <div class="container mx-auto text-center">
+            <h2 class="text-3xl font-bold">Về Xanh Đấu</h2>
+            <p class="mt-4 text-lg">Trò chơi chiến lược đầy sáng tạo, giúp bạn hiểu thêm về bảo vệ môi trường. Tham gia ngay và trở thành nhà hoạt động xanh!</p>
+        </div>
+    </section>
+
+    <!--Mô tả sản phẩm-->
+    <section class="bg-white py-16 px-4">
+        <div class="container mx-auto">
+            <h2 class="text-3xl sm:text-xl font-semibold text-gray-800 mb-4">Mô tả sản phẩm</h2>
+            <!-- Tab Content -->
+            <div id="descriptionContent" class="mt-8 px-2 sm:px-5">
+                <p class="text-gray-700 mb-4">@Model.Product.Description.</p>
+            </div>
+
+            <!-- Review Section -->
+            <div id="reviewContent" class="mt-8 px-2 sm:px-5">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- Submit review -->
+                    <div class="w-full">
+                        <h2 class="text-3xl sm:text-xl font-semibold text-gray-800 mb-4">Đánh giá sản phẩm</h2>
+                        <form method="post" action="/Home/AddFeedback" enctype="multipart/form-data" class="space-y-4">
+                            <input type="hidden" name="ProductId" value="@Model.Product.ProductId"/>
+
+                            <!-- Rating Stars -->
+                            <div class="mb-4">
+                                <label class="block text-gray-700 text-sm font-bold mb-2">Đánh giá của bạn</label>
+                                <div class="flex items-center space-x-1">
+                                    <input type="hidden" name="Rating" id="ratingInput" value="5"/>
+                                    <div class="flex items-center" id="starRating">
+                                        <i class="bx bxs-star text-yellow-400 text-2xl cursor-pointer" data-rating="1"></i>
+                                        <i class="bx bxs-star text-yellow-400 text-2xl cursor-pointer" data-rating="2"></i>
+                                        <i class="bx bxs-star text-yellow-400 text-2xl cursor-pointer" data-rating="3"></i>
+                                        <i class="bx bxs-star text-yellow-400 text-2xl cursor-pointer" data-rating="4"></i>
+                                        <i class="bx bxs-star text-yellow-400 text-2xl cursor-pointer" data-rating="5"></i>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Comment -->
+                            <div class="mb-4">
+                                <textarea name="Comment"
+                                        class="w-full h-32 p-4 border border-gray-300 rounded-lg text-gray-700 resize-none focus:border-green-500 focus:ring-1 focus:ring-green-500"
+                                        placeholder="Chia sẻ trải nghiệm của bạn về sản phẩm" required></textarea>
+                            </div>
+
+                            <!-- Image Upload -->
+                            <div class="mb-4">
+                                <label class="block text-gray-700 text-sm font-bold mb-2">Thêm hình ảnh (tối đa 5 ảnh)</label>
+                                <input type="file" name="Images" multiple accept="image/*"
+                                    class="w-full px-3 py-2 border border-gray-300 rounded-lg text-gray-700"
+                                    onchange="previewImages(event)"/>
+                                <div id="imagePreview" class="flex flex-wrap gap-2 mt-2"></div>
+                            </div>
+
+                            @if (username != null){
+                                <button type="submit"
+                                        class="w-full bg-green-600 text-white px-6 py-3 rounded-md hover:bg-green-700 transition duration-200">
+                                    Gửi Đánh Giá
+                                </button>
+                            }else{
+                                <button onclick="showModal()"
+                                        class="w-full bg-green-600 text-white px-6 py-3 rounded-md hover:bg-green-700 transition duration-200">
+                                    Gửi Đánh Giá
+                                </button>
+                            }
+                        </form>
+                    </div>
+
+                    <!-- Display reviews -->
+                    <div class="w-full">
+                        <h3 class="text-2xl sm:text-xl font-semibold text-gray-800 mb-4">Đánh giá từ người dùng khác</h3>
+                        @foreach (var feedback in Model.Feedbacks.OrderByDescending(f => f.CreateAt))
+                        {
+                            <div class="bg-white p-4 sm:p-6 rounded-lg shadow-lg mb-4">
+                                <div class="flex flex-wrap items-center justify-between gap-3">
+                                    <div class="flex items-center space-x-4">
+                                        <img src="/img/avatar.jpg" class="w-10 h-10 rounded-full bg-gray-300 shadow-sm border-2" alt="User avatar"/>
+                                        <div class="flex flex-col">
+                                            <span class="font-semibold text-gray-800">@feedback.Customer.FirstName @feedback.Customer.LastName</span>
+                                            <span class="text-xs text-gray-400">@feedback.CreateAt</span>
+                                        </div>
+                                    </div>
+
+                                    <!-- Rating display -->
+                                    <div class="flex">
+                                        @for (var i = 1; i <= 5; i++)
+                                        {
+                                            if (i <= feedback.FeedbackRate)
+                                            {
+                                                <i class="bx bxs-star text-yellow-400"></i>
+                                            }
+                                            else
+                                            {
+                                                <i class="bx bxs-star text-gray-300"></i>
+                                            }
+                                        }
+                                    </div>
+                                </div>
+
+                                <!-- Review content -->
+                                <p class="text-gray-700 mt-4">@feedback.FeedbackComment</p>
+
+                                <!-- Review images -->
+                                @if (feedback.FeedbackImages != null && feedback.FeedbackImages.Any())
+                                {
+                                    <div class="flex flex-wrap gap-2 mt-4">
+                                        @foreach (var image in feedback.FeedbackImages)
+                                        {
+                                            <img src="@image.FeedbackImage1"
+                                                class="w-24 h-24 object-cover rounded-lg cursor-pointer hover:opacity-75"
+                                                onclick="openImageModal(this.src)" alt="Review image"/>
+                                        }
+                                    </div>
+                                }
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+
+            <!-- Image Modal -->
+            <div id="imageModal" class="fixed inset-0 bg-black bg-opacity-50 hidden flex items-center justify-center z-50">
+                <div class="relative">
+                    <img id="modalImage" src="" class="max-h-[80vh] max-w-[90vw] object-contain" alt="Enlarged review image"/>
+                    <button onclick="closeImageModal()" class="absolute top-4 right-4 text-white text-xl hover:text-gray-300">
+                        <i class="bx bx-x"></i>
+                    </button>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+
+</div>
+
+<!-- Modal loginModal First -->
+<div id="loginModal" class="fixed inset-0 flex items-center justify-center p-4 z-50 hidden">
+    <div class="bg-white p-8 rounded-2xl shadow-2xl w-full max-w-md text-center relative">
+        <button onclick="closeModal()" class="absolute top-3 right-3 text-gray-600 hover:text-gray-900 text-xl">&times;</button>
+        <div class="flex justify-center mb-4">
+            <div class="w-16 h-16 flex items-center justify-center bg-red-500 text-white text-3xl font-bold rounded-full">X</div>
+        </div>
+        <h2 class="text-2xl font-bold text-green-700">Bạn cần đăng nhập!</h2>
+        <p class="text-gray-700 mt-2">Vui lòng đăng nhập để tiếp tục mua hàng và bảo vệ môi trường cùng Xanh Đấu.</p>
+        <div class="mt-6 flex justify-center gap-4">
+            <a asp-controller="Auth" asp-action="Login" class="bg-green-500 hover:bg-green-600 text-white px-5 py-2 rounded-lg shadow-md transition-all transform hover:scale-105">Đăng nhập</a>
+            <button onclick="closeModal()" class="bg-gray-300 hover:bg-gray-400 px-5 py-2 rounded-lg shadow-md transition-all transform hover:scale-105">Đóng</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    @* 
+    // Lắng nghe sự kiện click trên các tab
+    descriptionTab.addEventListener('click', () => switchTab(descriptionTab, reviewTab, descriptionContent, reviewContent));
+    reviewTab.addEventListener('click', () => switchTab(reviewTab, descriptionTab, reviewContent, descriptionContent)); *@
+    document.addEventListener('DOMContentLoaded', function () {
+        const quantityInput = document.getElementById('quantityInput');
+        const stockQuantity = @Model.Product.StockQuantity;
+        const addToCartForm = quantityInput.closest('form');
+
+        quantityInput.addEventListener('change', function () {
+            if (parseInt(this.value) > stockQuantity) {
+                alert('Số lượng không được vượt quá số lượng trong kho!');
+                this.value = stockQuantity;
+            }
+        });
+
+        addToCartForm.addEventListener('submit', function (e) {
+            const quantity = parseInt(quantityInput.value);
+            if (quantity > stockQuantity) {
+                e.preventDefault();
+                alert('Số lượng không được vượt quá số lượng trong kho!');
+                quantityInput.value = stockQuantity;
+            }
+        });
+    });
+
+    // Image gallery functionality
+    document.addEventListener('DOMContentLoaded', function () {
+        const thumbnails = document.querySelectorAll('.thumbnail');
+        const mainImage = document.getElementById('mainImage');
+
+        thumbnails.forEach(thumbnail => {
+            thumbnail.addEventListener('click', () => {
+                // Update main image
+                const newSrc = thumbnail.getAttribute('data-src');
+                mainImage.src = newSrc;
+
+                // Update thumbnail styling
+                thumbnails.forEach(thumb =>
+                    thumb.parentElement.classList.remove('ring-2', 'ring-green-500'));
+                thumbnail.parentElement.classList.add('ring-2', 'ring-green-500');
+            });
+        });
+    });
+    // Star rating functionality
+    document.addEventListener('DOMContentLoaded', function () {
+        const starRating = document.getElementById('starRating');
+        const ratingInput = document.getElementById('ratingInput');
+        const stars = starRating.getElementsByTagName('i');
+
+        // Initialize star rating handling
+        for (let i = 0; i < stars.length; i++) {
+            stars[i].addEventListener('click', function () {
+                const rating = this.getAttribute('data-rating');
+                ratingInput.value = rating;
+                updateStars(rating);
+            });
+
+            stars[i].addEventListener('mouseover', function () {
+                const rating = this.getAttribute('data-rating');
+                hoverStars(rating);
+            });
+        }
+
+        starRating.addEventListener('mouseout', function () {
+            const currentRating = ratingInput.value;
+            updateStars(currentRating);
+        });
+
+        function updateStars(rating) {
+            for (let i = 0; i < stars.length; i++) {
+                if (i < rating) {
+                    stars[i].classList.remove('bx-star');
+                    stars[i].classList.add('bxs-star');
+                } else {
+                    stars[i].classList.remove('bxs-star');
+                    stars[i].classList.add('bx-star');
+                }
+            }
+        }
+
+        function hoverStars(rating) {
+            for (let i = 0; i < stars.length; i++) {
+                if (i < rating) {
+                    stars[i].classList.remove('bx-star');
+                    stars[i].classList.add('bxs-star');
+                } else {
+                    stars[i].classList.remove('bxs-star');
+                    stars[i].classList.add('bx-star');
+                }
+            }
+        }
+    });
+
+    // Image preview functionality
+    function previewImages(event) {
+        const preview = document.getElementById('imagePreview');
+        preview.innerHTML = '';
+        const files = event.target.files;
+
+        if (files.length > 5) {
+            alert('Bạn chỉ có thể tải lên tối đa 5 ảnh');
+            event.target.value = '';
+            return;
+        }
+
+        for (let i = 0; i < files.length; i++) {
+            const file = files[i];
+            if (!file.type.startsWith('image/')) continue;
+
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                const div = document.createElement('div');
+                div.className = 'relative';
+                div.innerHTML = `
+                <img src="${e.target.result}" class="w-24 h-24 object-cover rounded-lg" alt="Preview"/>
+                <button type="button" onclick="this.parentElement.remove()" 
+                        class="absolute -top-2 -right-2 bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center hover:bg-red-600">
+                    ×
+                </button>
+            `;
+                preview.appendChild(div);
+            };
+            reader.readAsDataURL(file);
+        }
+    }
+
+    // Modal functionality
+    function openImageModal(src) {
+        const modal = document.getElementById('imageModal');
+        const modalImage = document.getElementById('modalImage');
+        modal.classList.remove('hidden');
+        modalImage.src = src;
+    }
+
+    function closeImageModal() {
+        const modal = document.getElementById('imageModal');
+        modal.classList.add('hidden');
+    }
+
+    // Close modal when clicking outside the image
+    document.getElementById('imageModal').addEventListener('click', function (e) {
+        if (e.target === this) {
+            closeImageModal();
+        }
+    });
+
+</script>
+
+<script>
+    function showModal() {
+        document.getElementById('loginModal').classList.remove('hidden');
+    }
+    function closeModal() {
+        document.getElementById('loginModal').classList.add('hidden');
+    }
+</script>

@@ -1,0 +1,203 @@
+@model Xanh_Dau.DTO.AdminOrderDTO
+@{
+    ViewData["Title"] = "Order Management Page";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+<link rel="stylesheet" href="~/css/site.css"/>
+<link rel="stylesheet" href="~/tailwind/build/tailwind.css">
+<link rel="stylesheet" href="~/fonts/boxicons.css"/>
+<script src="~/js/site.js"></script>
+
+<div class="p-6 bg-gray-100 min-h-screen">
+    <h3 class="text-xl font-semibold text-gray-800 mb-6">Quản lý đơn hàng</h3>
+    <!-- Search & Filter Tools -->
+    <div class="bg-white p-6 rounded-lg shadow-lg mb-2">
+        <h3 class="text-xl font-semibold text-gray-800 mb-4">Công cụ tìm kiếm và lọc</h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+            <input type="text" placeholder="Tìm kiếm theo ID đơn hàng, khách hàng hoặc sản phẩm"
+                   class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none">
+            <select class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none">
+                <option value="">Trạng thái đơn hàng</option>
+                <option value="pending">Đang chờ</option>
+                <option value="completed">Đã hoàn thành</option>
+                <option value="cancelled">Đã hủy</option>
+            </select>
+            <input type="date" placeholder="Ngày đặt hàng"
+                   class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none">
+            <input type="text" placeholder="Tên khách hàng"
+                   class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none">
+        </div>
+    </div>
+
+    <!-- Order List Table -->
+    <div class="bg-white p-6 rounded-lg shadow-lg" style="min-height: 310px;">
+        <h3 class="text-xl font-semibold text-gray-800 mb-4">Danh sách đơn hàng</h3>
+        <div class="overflow-x-auto" style="min-height: 310px;">
+            <table class="w-full border-collapse border border-gray-200">
+                <thead>
+                <tr class="bg-gray-100 text-gray-600 text-sm">
+                    <th class="border border-gray-200 px-4 py-2 text-left">ID Đơn hàng</th>
+                    <th class="border border-gray-200 px-4 py-2 text-left">Khách hàng</th>
+                    <th class="border border-gray-200 px-4 py-2 text-left">Ngày đặt</th>
+                    <th class="border border-gray-200 px-4 py-2 text-left">Trạng thái</th>
+                    <th class="border border-gray-200 px-4 py-2 text-left">Tổng giá trị</th>
+                    <th class="border border-gray-200 px-4 py-2 text-left">Địa chỉ giao hàng</th>
+                    <th class="border border-gray-200 px-4 py-2 text-left">Người nhận</th>
+                    <th class="border border-gray-200 px-4 py-2 text-center">Thao tác</th>
+                </tr>
+                </thead>
+                <tbody class="text-sm text-gray-700">
+                @foreach (var item in Model.ListOrder)
+                {
+                    <tr class="hover:bg-gray-50">
+                        <td class="border border-gray-200 px-4 py-2">@item.OrderId</td>
+                        <td class="border border-gray-200 px-4 py-2">
+                            @Model.ListCustomers.FirstOrDefault(c => c.CustomerId == item.CustomerId)?.LastName
+                            @Model.ListCustomers.FirstOrDefault(c => c.CustomerId == item.CustomerId)?.FirstName
+                        </td>
+                        <td class="border border-gray-200 px-4 py-2">@item.CreatedAt</td>
+                        <td class="border border-gray-200 px-4 py-2">
+                            <div class="relative">
+        <span class="px-4 py-2 rounded-full 
+            @(item.Status == "pending" ? "bg-yellow-100 text-yellow-800" :
+                                 item.Status == "processed" ? "bg-blue-100 text-blue-800" :
+                                 item.Status == "completed" ? "bg-green-100 text-green-800" :
+                                 "bg-red-100 text-red-800")">
+            @(item.Status == "pending" ? "Đang xử lý" :
+            item.Status == "processed" ? "Đã xử lý" :
+            item.Status == "completed" ? "Hoàn thành" : "Đã hủy")
+        </span>
+                                <button onclick="openStatusModal(@item.OrderId, '@item.Status')"
+                                        class="ml-2 text-blue-600 hover:text-blue-800">
+                                    <i class="bx bx-edit"></i>
+                                </button>
+                            </div>
+                        </td>
+                        <td class="border border-gray-200 px-4 py-2">@item.TotalPrice</td>
+                        <td class="border border-gray-200 px-4 py-2">@item.ShippingAddress</td>
+                        <td class="border border-gray-200 px-4 py-2">@item.Receiver</td>
+                        <td class="border border-gray-200 px-4 py-2 text-center">
+                            <div class="relative">
+                                <button onclick="toggleDropdown(this)" class="px-2 py-1 text-black focus:outline-none">
+                                    <i class="bx bx-dots-vertical-rounded"></i>
+                                </button>
+                                <div class="absolute hidden mt-2 bg-white border border-gray-200 rounded shadow-lg w-40"
+                                     style="margin-left: -7rem; top: 1.3rem;">
+                                    <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Xem chi
+                                        tiết</a>
+                                    <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Gửi
+                                        email</a>
+                                    <button onclick="openStatusModal(@item.OrderId, '@item.Status')"
+                                            class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                                        Cập nhật trạng thái
+                                    </button>
+                                    <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Hủy
+                                        đơn</a>
+                                    <a href="#" class="block px-4 py-2 text-sm text-red-700 hover:bg-gray-100">Xóa
+                                        đơn</a>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                }
+                <!-- Add more rows as needed -->
+                </tbody>
+            </table>
+        </div>
+        <div class="mt-4">
+            <!-- Pagination -->
+            <div class="flex justify-end items-center mt-4">
+                <button class="px-4 py-2 mx-1 bg-gray-200 text-gray-600 rounded hover:bg-gray-300 focus:outline-none">
+                    Trước
+                </button>
+                <button class="px-4 py-2 mx-1 bg-blue-500 text-white rounded hover:bg-blue-600 focus:outline-none">
+                    1
+                </button>
+                <button class="px-4 py-2 mx-1 bg-gray-200 text-gray-600 rounded hover:bg-gray-300 focus:outline-none">
+                    2
+                </button>
+                <button class="px-4 py-2 mx-1 bg-gray-200 text-gray-600 rounded hover:bg-gray-300 focus:outline-none">
+                    3
+                </button>
+                <span class="px-2 text-gray-600">...</span>
+                <button class="px-4 py-2 mx-1 bg-gray-200 text-gray-600 rounded hover:bg-gray-300 focus:outline-none">
+                    Tiếp
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="statusModal" class="fixed inset-0 bg-gray-600 bg-opacity-50 hidden flex items-center justify-center">
+    <div class="bg-white p-6 rounded-lg shadow-lg w-96">
+        <h3 class="text-lg font-semibold mb-4">Cập nhật trạng thái đơn hàng</h3>
+        <input type="hidden" id="currentOrderId"/>
+        <select id="orderStatus" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none mb-4">
+            <option value="pending">Đang xử lý</option>
+            <option value="processed">Đã xử lý</option>
+            <option value="completed">Hoàn thành</option>
+            <option value="cancelled">Đã hủy</option>
+        </select>
+        <div class="flex justify-end gap-2">
+            <button onclick="closeStatusModal()"
+                    class="px-4 py-2 bg-gray-200 text-gray-700 rounded hover:bg-gray-300">
+                Hủy
+            </button>
+            <button onclick="updateOrderStatus()"
+                    class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">
+                Cập nhật
+            </button>
+        </div>
+    </div>
+</div>
+<script>
+    function toggleDropdown(button) {
+        const dropdown = button.nextElementSibling;
+        dropdown.classList.toggle('hidden');
+    }
+
+    function openStatusModal(orderId, currentStatus) {
+        document.getElementById('statusModal').classList.remove('hidden');
+        document.getElementById('currentOrderId').value = orderId;
+        document.getElementById('orderStatus').value = currentStatus;
+    }
+
+    function closeStatusModal() {
+        document.getElementById('statusModal').classList.add('hidden');
+    }
+
+    async function updateOrderStatus() {
+        const orderId = document.getElementById('currentOrderId').value;
+        const newStatus = document.getElementById('orderStatus').value;
+
+        try {
+            const response = await fetch(`/Admin/UpdateOrderStatus`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    orderId: orderId,
+                    status: newStatus
+                })
+            });
+
+            if (response.ok) {
+                closeStatusModal();
+                // Reload trang để cập nhật dữ liệu
+                window.location.reload();
+            } else {
+                alert('Có lỗi xảy ra khi cập nhật trạng thái đơn hàng');
+            }
+        } catch (error) {
+            alert('Có lỗi xảy ra khi cập nhật trạng thái đơn hàng');
+        }
+    }
+
+    // Đóng modal khi click bên ngoài
+    window.onclick = function (event) {
+        const modal = document.getElementById('statusModal');
+        if (event.target == modal) {
+            closeStatusModal();
+        }
+    }
+</script>

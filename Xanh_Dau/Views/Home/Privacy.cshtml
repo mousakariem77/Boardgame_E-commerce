@@ -1,0 +1,270 @@
+﻿@{
+    ViewData["Title"] = "Privacy Policy";
+}
+<h1>@ViewData["Title"]</h1>
+
+<p>Use this page to detail your site's privacy policy.</p>
+
+@model Xanh_Dau.DTO.CartDetaiDTO
+@{
+    ViewData["Title"] = "Cart Detail Page";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link rel="stylesheet" href="~/css/site.css"/>
+<link rel="stylesheet" href="~/tailwind/build/tailwind.css">
+<link rel="stylesheet" href="~/fonts/boxicons.css"/>
+<script src="~/js/site.js"></script>
+
+<div class="container mx-auto px-4 py-8">
+    <!-- Header -->
+    <div class="mb-8 text-center">
+        <h1 class="text-4xl font-bold text-green-600">Giỏ Hàng Của Bạn</h1>
+        <p class="text-gray-600 mt-2">Kiểm tra và hoàn tất đơn hàng để bảo vệ môi trường cùng Xanh Đấu!</p>
+    </div>
+
+    <!-- Cart Table -->
+    <div class="overflow-x-auto bg-white shadow-lg rounded-lg">
+        <table class="min-w-full divide-y divide-gray-200">
+            <thead class="bg-green-500">
+            <tr>
+                <th class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">
+                    Sản phẩm
+                </th>
+                <th class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">
+                    Giá
+                </th>
+                <th class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">
+                    Số lượng
+                </th>
+                <th class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">
+                    Tổng
+                </th>
+                <th class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">
+                    Thao tác
+                </th>
+            </tr>
+            </thead>
+            <tbody class="bg-white divide-y divide-gray-200">
+            @foreach (var item in Model.CartItems)
+            {
+                <tr>
+                    <td class="px-6 py-4 whitespace-nowrap">
+                        <div class="flex items-center">
+                            @* @if (!string.IsNullOrEmpty(item.Product.Image)) *@
+                            @* { *@
+                            @* <img src="@item.Product.Image" alt="@item.Product.Name" class="w-16 h-16 object-cover rounded"> *@
+                            @* } *@
+                            <div class="ml-4">
+                                <div class="text-sm font-medium text-gray-900">
+                                    @item.Product.Name
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap">
+                        <div class="text-sm text-gray-900">@item.Product.Price.ToString("N0")₫</div>
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap">
+                        <form method="post" action="@Url.Action("UpdateQuantity", "Cart")"
+                              class="flex items-center space-x-2">
+                            <input type="hidden" name="cartDetailId" value="@item.CartDetailID">
+                            <div class="flex border border-gray-300 rounded-md">
+                                <button type="submit" name="quantity" value="@(item.Quantity - 1)"
+                                        class="px-3 py-1 bg-gray-100 hover:bg-gray-200 border-r border-gray-300">
+                                    -
+                                </button>
+                                <input type="number"
+                                       value="@item.Quantity"
+                                       readonly
+                                       class="w-16 text-center focus:outline-none">
+                                <button type="submit" name="quantity" value="@(item.Quantity + 1)"
+                                        class="px-3 py-1 bg-gray-100 hover:bg-gray-200 border-l border-gray-300">
+                                    +
+                                </button>
+                            </div>
+                        </form>
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap">
+                        <div class="text-sm font-medium text-gray-900">
+                            @((item.Product.Price * item.Quantity).ToString("N0"))₫
+                        </div>
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap text-center">
+                        <form method="post" action="@Url.Action("UpdateQuantity", "Cart")"
+                              class="inline-block">
+                            <input type="hidden" name="cartDetailId" value="@item.CartDetailID">
+                            <input type="hidden" name="quantity" value="0">
+                            <button type="submit"
+                                    class="text-red-600 hover:text-red-900">
+                                Xóa
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+            }
+            </tbody>
+        </table>
+    </div>
+
+
+    <!-- Address and Discount Section -->
+    <div class="mt-8 grid grid-cols-1 lg:grid-cols-2 gap-8">
+        <!-- Discount Code Section -->
+        <div class="p-6 bg-gray-50 rounded-lg shadow-lg">
+            <h2 class="text-2xl font-bold text-gray-800 mb-4">Mã Giảm Giá</h2>
+            <p class="text-gray-600 mb-4">Nhập mã giảm giá của bạn bên dưới để nhận ưu đãi đặc biệt.</p>
+            <div class="flex">
+                <input type="text" placeholder="Nhập mã giảm giá"
+                       class="w-full px-4 border border-gray-300 rounded-l-lg focus:outline-none focus:ring-2 focus:ring-green-500">
+                <button
+                    class="px-6 py-2 w-32 bg-green-600 text-white font-semibold rounded-r-lg hover:bg-green-500 transition">
+                    Áp Dụng
+                </button>
+            </div>
+            <p class="text-sm text-gray-500 mt-2">* Chỉ áp dụng một mã giảm giá cho mỗi đơn hàng.</p>
+        </div>
+
+        <!-- Address Selection Section -->
+        <div class="p-6 bg-gray-50 rounded-lg shadow-lg">
+            <h2 class="text-2xl font-bold text-gray-800 mb-4">Địa Chỉ Nhận Hàng</h2>
+            <p class="text-gray-600 mb-4">Chọn địa chỉ nhận hàng hoặc thêm địa chỉ mới.</p>
+
+            <!-- Address selection and Add button aligned horizontally -->
+            <div class="flex items-center justify-between">
+                <div class="w-3/4">
+                    <select
+                        class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500">
+                        <option>123 đường Nguyễn Văn Cừ, Cần Thơ</option>
+                        <option>45 Trần Hưng Đạo, TP.HCM</option>
+                        <option>78 Hai Bà Trưng, Hà Nội</option>
+                    </select>
+                </div>
+                <button id="add-address"
+                        class="ml-4 text-green-600 font-semibold hover:text-green-700">
+                    + Thêm
+                </button>
+            </div>
+
+            <p class="text-sm text-gray-500 mt-2">* Bạn có thể thêm nhiều địa chỉ và chọn một địa chỉ để giao hàng.</p>
+        </div>
+    </div>
+
+
+    <!-- Order Summary -->
+    <div class="mt-8">
+        <div class="w-full lg:w-2/3 bg-gray-100 p-6 rounded-lg shadow-lg mx-auto">
+            <h2 class="text-2xl font-bold text-gray-800">Tổng Đơn Hàng</h2>
+
+            <!-- Summary Details -->
+            <div class="flex justify-between mt-4 text-gray-600">
+                <span>Tạm tính:</span>
+                <span
+                    class="font-semibold">@Model.CartItems.Sum(item => item.Product.Price * item.Quantity).ToString("N0")₫</span>
+            </div>
+            <div class="flex justify-between mt-2 text-gray-600">
+                <span>Phí vận chuyển:</span>
+                <span class="font-semibold">30.000₫</span>
+            </div>
+
+            <!-- Notes -->
+            <div class="mt-4">
+                <label for="order-note" class="block text-gray-800 font-semibold">Ghi chú:</label>
+                <textarea id="order-note"
+                          class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
+                          placeholder="Thêm ghi chú cho đơn hàng (ví dụ: giao hàng ngoài giờ hành chính)..."></textarea>
+            </div>
+
+            <hr class="my-4">
+
+            <!-- Payment Method -->
+            <div>
+                <h3 class="text-lg font-semibold text-gray-800 mb-2">Phương Thức Thanh Toán</h3>
+                <div class="space-y-2">
+                    <label class="flex items-center">
+                        <input type="radio" name="payment-method" class="mr-2 text-green-500 focus:ring-green-500"
+                               checked>
+                        <span>Thanh toán khi nhận hàng</span>
+                    </label>
+                    <label class="flex items-center">
+                        <input type="radio" name="payment-method" class="mr-2 text-green-500 focus:ring-green-500">
+                        <span>Thanh toán online qua QR</span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Total Amount -->
+            <div class="flex justify-between text-gray-800 font-bold text-lg mt-6">
+                <span>Tổng cộng:</span>
+                <span>@Model.TotalAmount.ToString("N0")₫</span>
+            </div>
+
+            <!-- Checkout Button -->
+            <button
+                class="mt-6 w-full px-6 py-3 bg-green-600 text-white rounded-lg hover:bg-green-500 transition duration-300">
+                Thanh Toán
+            </button>
+        </div>
+    </div>
+
+    <!-- Continue Shopping -->
+    <div class="mt-8 text-center">
+        <a asp-controller="Home" asp-action="Shop" class="text-green-600 hover:text-green-700 font-semibold text-lg">
+            &larr; Tiếp tục mua sắm
+        </a>
+    </div>
+</div>
+
+<!-- Modal for Adding New Address -->
+@* <div id="address-modal" class="modal hidden fixed inset-0 bg-gray-500 bg-opacity-50 flex justify-center items-center"> *@
+@*     <div class="bg-white p-6 rounded-lg shadow-md w-1/3"> *@
+@*         <h3 class="text-xl font-semibold mb-4">Thêm Địa Chỉ</h3> *@
+@*         <form> *@
+@*             <div class="mb-4"> *@
+@*                 <label for="new-address-name" class="block text-gray-700 font-semibold">Tên Người Nhận</label> *@
+@*                 <input type="text" id="new-address-name" class="w-full px-4 py-3 border border-gray-300 rounded-lg" placeholder="Nhập tên người nhận"> *@
+@*             </div> *@
+@*             <div class="mb-4"> *@
+@*                 <label for="new-address-phone" class="block text-gray-700 font-semibold">Số Điện Thoại</label> *@
+@*                 <input type="text" id="new-address-phone" class="w-full px-4 py-3 border border-gray-300 rounded-lg" placeholder="Nhập số điện thoại"> *@
+@*             </div> *@
+@*             <div class="mb-4"> *@
+@*                 <label for="new-address-detail" class="block text-gray-700 font-semibold">Địa Chỉ</label> *@
+@*                 <input type="text" id="new-address-detail" class="w-full px-4 py-3 border border-gray-300 rounded-lg" placeholder="Nhập địa chỉ cụ thể"> *@
+@*             </div> *@
+@*             <div class="mt-4 flex justify-end"> *@
+@*                 <button type="button" id="close-modal" data-close-modal="address-modal" class="ml-2 mr-3 px-6 py-2 bg-gray-500 text-white rounded-lg hover:bg-gray-400">Đóng</button> *@
+@*                 <button type="button" class="bg-green-500 text-white px-6 py-2 rounded-md hover:bg-green-400">Lưu</button> *@
+@*             </div> *@
+@*         </form> *@
+@*     </div> *@
+@* </div> *@
+
+
+<script>
+    // Lấy các phần tử modal và nút
+    const addAddressButton = document.getElementById("add-address");
+    const modal = document.getElementById("address-modal");
+    const closeModalButton = document.getElementById("close-modal");
+
+    // Hiển thị modal khi người dùng nhấn "Thêm"
+    addAddressButton.addEventListener("click", () => {
+        modal.classList.remove("hidden");  // Mở modal
+    });
+
+    // Đóng modal khi người dùng nhấn "Đóng"
+    closeModalButton.addEventListener("click", () => {
+        modal.classList.add("hidden");  // Đóng modal
+    });
+
+    // Thêm chức năng lưu địa chỉ mới (có thể thêm hành động lưu địa chỉ vào cơ sở dữ liệu nếu cần)
+    const saveAddressButton = document.getElementById("save-address");
+    saveAddressButton.addEventListener("click", () => {
+        const newAddress = document.getElementById("new-address").value;
+        if (newAddress) {
+            // Thực hiện hành động lưu địa chỉ mới vào cơ sở dữ liệu hoặc thao tác khác
+            console.log("Địa chỉ mới đã được lưu:", newAddress);
+        }
+        modal.classList.add("hidden");  // Đóng modal sau khi lưu
+    });
+
+</script>

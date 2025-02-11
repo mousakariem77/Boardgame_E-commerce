@@ -1,0 +1,62 @@
+@model Xanh_Dau.DTO.CustomerDTO
+@{
+    ViewData["Title"] = "Customer Detail Page";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+<link rel="stylesheet" href="~/css/site.css"/>
+<link rel="stylesheet" href="~/tailwind/build/tailwind.css">
+<link rel="stylesheet" href="~/fonts/boxicons.css"/>
+<script src="~/js/site.js"></script>
+
+<div class="admin_customer-detail min-h-screen bg-gray-50 py-6">
+    <div class="customer-detail-container max-w-5xl mx-auto bg-white shadow-md rounded-lg p-6">
+        <h3 class="text-xl font-semibold text-gray-800 mb-3">Xem chi tiết khách hàng</h3>
+        <div class="flex flex-wrap md:flex-nowrap md:space-x-6">
+            <!-- Avatar -->
+            <div class="w-full md:w-1/3 flex justify-center items-center">
+                <div class="relative w-40 h-40 rounded-full overflow-hidden border-4 border-gray-200">
+                    <img src="@Model.Customer.Picture" alt="Avatar" class="object-cover w-full h-full">
+                </div>
+            </div>
+
+            <!-- Customer Details -->
+            <div class="w-full md:w-2/3">
+                <h1 class="text-2xl font-bold text-gray-800">@Model.Customer.FirstName @Model.Customer.LastName</h1>
+                <p class="text-gray-600 text-sm mb-2">Mã khách hàng: @Model.Customer.CustomerId</p>
+                <p class="text-gray-700 text-lg font-semibold">Email: <span class="text-blue-600">@Model.Customer.Email</span></p>
+                <p class="text-gray-700 mb-4">Số điện thoại: @Model.Customer.PhoneNumber</p>
+                <p class="text-gray-700">Giới tính: @Model.Customer.Gender</p>
+                <p class="text-gray-700">
+                    Ngày sinh: @(Model.Customer.Dob.HasValue ? Model.Customer.Dob.Value.ToString("dd/MM/yyyy") : "Chưa cập nhật")
+                </p>
+
+                <p class="text-gray-700 mb-6">Địa chỉ: @Model.Customer.Address</p>
+
+                <div class="flex items-center space-x-3 mb-6">
+                    <span class="inline-block bg-green-100 text-green-700 text-xs font-semibold rounded-full px-3 py-1">Trạng thái: @Model.Customer.Status</span>
+                    <span class="inline-block text-gray-500 text-sm">Lần đăng nhập cuối: @Model.Customer.LastLogin</span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Additional Info -->
+        <div class="mt-6 border-t pt-4">
+            <h2 class="text-xl font-semibold text-gray-800 mb-4">Thông tin hệ thống</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                    <p class="text-gray-600"><span class="font-semibold">Tạo ngày:</span> @Model.Customer.CreatedAt</p>
+                </div>
+                <div>
+                    <p class="text-gray-600"><span class="font-semibold">Cập nhật bởi:</span> @Model.Customer.UpdatedBy</p>
+                </div>
+                <div>
+                    <p class="text-gray-600"><span class="font-semibold">Cập nhật lúc:</span> @Model.Customer.UpdatedAt</p>
+                </div>
+                <p class="text-gray-600">
+                    <span class="font-semibold">Đã xóa:</span> @(Model.Customer.IsDeleted.HasValue && Model.Customer.IsDeleted.Value ? "Có" : "Không")
+                </p>
+
+            </div>
+        </div>
+    </div>
+</div>

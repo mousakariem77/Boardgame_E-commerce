@@ -1,0 +1,179 @@
+@{
+    ViewData["Title"] = "Analyst Management Page";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+<link rel="stylesheet" href="~/css/site.css"/>
+<link rel="stylesheet" href="~/tailwind/build/tailwind.css">
+<link rel="stylesheet" href="~/fonts/boxicons.css"/>
+<script src="~/js/site.js"></script>
+
+<div class="p-6 bg-gray-100 min-h-screen">
+    <h3 class="text-2xl font-semibold text-gray-800 mb-6">Báo cáo Doanh thu</h3>
+
+    <!-- Tab navigation for different sections -->
+    <div class="bg-white p-6 rounded-lg shadow-lg mb-4">
+        <ul class="flex border-b">
+            <li class="mr-1">
+                <a class="inline-block py-2 px-4 text-gray-600 hover:text-blue-600 focus:outline-none"
+                   href="#revenue-overview">Tổng quan doanh thu</a>
+            </li>
+            <li class="mr-1">
+                <a class="inline-block py-2 px-4 text-gray-600 hover:text-blue-600 focus:outline-none"
+                   href="#revenue-trends">Biểu đồ doanh thu</a>
+            </li>
+            <li class="mr-1">
+                <a class="inline-block py-2 px-4 text-gray-600 hover:text-blue-600 focus:outline-none"
+                   href="#product-analysis">Phân tích doanh thu sản phẩm</a>
+            </li>
+            <li class="mr-1">
+                <a class="inline-block py-2 px-4 text-gray-600 hover:text-blue-600 focus:outline-none"
+                   href="#customer-analysis">Phân tích theo khách hàng</a>
+            </li>
+            <li class="mr-1">
+                <a class="inline-block py-2 px-4 text-gray-600 hover:text-blue-600 focus:outline-none"
+                   href="#promotion-revenue">Doanh thu khuyến mãi</a>
+            </li>
+            <li class="mr-1">
+                <a class="inline-block py-2 px-4 text-gray-600 hover:text-blue-600 focus:outline-none"
+                   href="#costs-profit">Chi phí và lợi nhuận</a>
+            </li>
+            <li class="mr-1">
+                <a class="inline-block py-2 px-4 text-gray-600 hover:text-blue-600 focus:outline-none"
+                   href="#return-cancellation">Tỷ lệ hoàn trả và hủy đơn</a>
+            </li>
+        </ul>
+    </div>
+
+    <!-- Section: Tổng quan doanh thu -->
+    <div id="revenue-overview" class="mb-8">
+        <h3 class="text-xl font-semibold text-gray-800 mb-4">Tổng quan doanh thu</h3>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            <div class="bg-white p-4 rounded-lg shadow">
+                <h4 class="text-lg font-medium text-gray-700">Tổng doanh thu</h4>
+                <p class="text-xl text-gray-900">₫ 1,500,000</p>
+                <select class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none">
+                    <option>Ngày</option>
+                    <option>Tuần</option>
+                    <option>Tháng</option>
+                    <option>Quý</option>
+                    <option>Năm</option>
+                </select>
+            </div>
+            <div class="bg-white p-4 rounded-lg shadow">
+                <h4 class="text-lg font-medium text-gray-700">Doanh thu theo sản phẩm</h4>
+                <p class="text-xl text-gray-900">₫ 800,000</p>
+            </div>
+            <div class="bg-white p-4 rounded-lg shadow">
+                <h4 class="text-lg font-medium text-gray-700">Doanh thu theo phương thức thanh toán</h4>
+                <p class="text-xl text-gray-900">₫ 1,000,000</p>
+            </div>
+            <div class="bg-white p-4 rounded-lg shadow">
+                <h4 class="text-lg font-medium text-gray-700">Doanh thu theo kênh bán hàng</h4>
+                <p class="text-xl text-gray-900">₫ 1,200,000</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Section: Biểu đồ doanh thu -->
+    <div id="revenue-trends" class="mb-8">
+        <h3 class="text-xl font-semibold text-gray-800 mb-4">Biểu đồ doanh thu theo thời gian</h3>
+        <div class="bg-white p-6 rounded-lg shadow">
+            <!-- Chart Placeholder -->
+            <div class="h-64 bg-gray-200 rounded-lg flex justify-center items-center">
+                <span class="text-xl text-gray-600">Biểu đồ doanh thu sẽ ở đây</span>
+            </div>
+        </div>
+        <div class="mt-4">
+            <h4 class="text-lg font-medium text-gray-700">Xu hướng doanh thu</h4>
+            <p class="text-lg text-gray-900">Dự báo doanh thu trong tháng tiếp theo: ₫ 1,200,000</p>
+        </div>
+    </div>
+
+    <!-- Section: Phân tích doanh thu sản phẩm -->
+    <div id="product-analysis" class="mb-8">
+        <h3 class="text-xl font-semibold text-gray-800 mb-4">Phân tích doanh thu sản phẩm</h3>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            <div class="bg-white p-4 rounded-lg shadow">
+                <h4 class="text-lg font-medium text-gray-700">Sản phẩm bán chạy nhất</h4>
+                <p class="text-xl text-gray-900">Sản phẩm A: ₫ 500,000</p>
+            </div>
+            <div class="bg-white p-4 rounded-lg shadow">
+                <h4 class="text-lg font-medium text-gray-700">Sản phẩm ít bán</h4>
+                <p class="text-xl text-gray-900">Sản phẩm B: ₫ 50,000</p>
+            </div>
+            <div class="bg-white p-4 rounded-lg shadow">
+                <h4 class="text-lg font-medium text-gray-700">Doanh thu theo danh mục sản phẩm</h4>
+                <p class="text-xl text-gray-900">Sản phẩm bảo vệ môi trường: ₫ 800,000</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Section: Phân tích theo khách hàng -->
+    <div id="customer-analysis" class="mb-8">
+        <h3 class="text-xl font-semibold text-gray-800 mb-4">Phân tích doanh thu theo khách hàng</h3>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            <div class="bg-white p-4 rounded-lg shadow">
+                <h4 class="text-lg font-medium text-gray-700">Doanh thu theo nhóm khách hàng</h4>
+                <p class="text-xl text-gray-900">Khách hàng từ Hà Nội: ₫ 1,000,000</p>
+            </div>
+            <div class="bg-white p-4 rounded-lg shadow">
+                <h4 class="text-lg font-medium text-gray-700">Khách hàng chi tiêu nhiều nhất</h4>
+                <p class="text-xl text-gray-900">Nguyễn Văn A: ₫ 800,000</p>
+            </div>
+            <div class="bg-white p-4 rounded-lg shadow">
+                <h4 class="text-lg font-medium text-gray-700">Khách hàng mới vs khách hàng cũ</h4>
+                <p class="text-xl text-gray-900">Khách hàng mới: ₫ 600,000 | Khách hàng cũ: ₫ 400,000</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Section: Doanh thu khuyến mãi -->
+    <div id="promotion-revenue" class="mb-8">
+        <h3 class="text-xl font-semibold text-gray-800 mb-4">Doanh thu khuyến mãi</h3>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            <div class="bg-white p-4 rounded-lg shadow">
+                <h4 class="text-lg font-medium text-gray-700">Khuyến mãi và giảm giá</h4>
+                <p class="text-xl text-gray-900">Doanh thu từ khuyến mãi: ₫ 500,000</p>
+            </div>
+            <div class="bg-white p-4 rounded-lg shadow">
+                <h4 class="text-lg font-medium text-gray-700">Mã giảm giá</h4>
+                <p class="text-xl text-gray-900">Mã "XANH10": ₫ 200,000</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Section: Chi phí và lợi nhuận -->
+    <div id="costs-profit" class="mb-8">
+        <h3 class="text-xl font-semibold text-gray-800 mb-4">Chi phí và lợi nhuận</h3>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            <div class="bg-white p-4 rounded-lg shadow">
+                <h4 class="text-lg font-medium text-gray-700">Chi phí vận chuyển</h4>
+                <p class="text-xl text-gray-900">₫ 100,000</p>
+            </div>
+            <div class="bg-white p-4 rounded-lg shadow">
+                <h4 class="text-lg font-medium text-gray-700">Chi phí khác</h4>
+                <p class="text-xl text-gray-900">₫ 150,000</p>
+            </div>
+            <div class="bg-white p-4 rounded-lg shadow">
+                <h4 class="text-lg font-medium text-gray-700">Lợi nhuận</h4>
+                <p class="text-xl text-gray-900">₫ 1,250,000</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Section: Tỷ lệ hoàn trả và hủy đơn -->
+    <div id="return-cancellation" class="mb-8">
+        <h3 class="text-xl font-semibold text-gray-800 mb-4">Tỷ lệ hoàn trả và hủy đơn</h3>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            <div class="bg-white p-4 rounded-lg shadow">
+                <h4 class="text-lg font-medium text-gray-700">Tỷ lệ hoàn trả</h4>
+                <p class="text-xl text-gray-900">5%</p>
+            </div>
+            <div class="bg-white p-4 rounded-lg shadow">
+                <h4 class="text-lg font-medium text-gray-700">Tỷ lệ hủy đơn hàng</h4>
+                <p class="text-xl text-gray-900">2%</p>
+            </div>
+        </div>
+    </div>
+
+</div>
